@@ -1,0 +1,16 @@
+com.lyokone.location-jetified-window-1.0.0-beta04-0 /home/mgsouza/.gradle/caches/transforms-3/0de068733846f1b04c38605e9acbc120/transformed/jetified-window-1.0.0-beta04/res
+com.lyokone.location-jetified-play-services-basement-18.3.0-1 /home/mgsouza/.gradle/caches/transforms-3/38dfe8d7e4148d082ddbcb1f37010915/transformed/jetified-play-services-basement-18.3.0/res
+com.lyokone.location-jetified-play-services-base-18.3.0-2 /home/mgsouza/.gradle/caches/transforms-3/59c779fa9431fa58c825542cfd863b74/transformed/jetified-play-services-base-18.3.0/res
+com.lyokone.location-jetified-annotation-experimental-1.3.0-3 /home/mgsouza/.gradle/caches/transforms-3/89478f75f28484d696e57f92ec10fed3/transformed/jetified-annotation-experimental-1.3.0/res
+com.lyokone.location-jetified-core-ktx-1.10.1-4 /home/mgsouza/.gradle/caches/transforms-3/8be5238e4faadb2dd64eac323f6b2fc9/transformed/jetified-core-ktx-1.10.1/res
+com.lyokone.location-core-1.10.1-5 /home/mgsouza/.gradle/caches/transforms-3/8c4606d74ab8fc20f409f32a6fbb5321/transformed/core-1.10.1/res
+com.lyokone.location-lifecycle-runtime-2.3.1-6 /home/mgsouza/.gradle/caches/transforms-3/a2b651b58e85ae9f035aa8bbba791668/transformed/lifecycle-runtime-2.3.1/res
+com.lyokone.location-jetified-window-java-1.0.0-beta04-7 /home/mgsouza/.gradle/caches/transforms-3/cc91323cadad8c9a3b3f9b0909e2994c/transformed/jetified-window-java-1.0.0-beta04/res
+com.lyokone.location-main-8 /home/mgsouza/.pub-cache/hosted/pub.dev/location-6.0.2/android/src/main/res
+com.lyokone.location-release-9 /home/mgsouza/.pub-cache/hosted/pub.dev/location-6.0.2/android/src/release/res
+com.lyokone.location-pngs-10 /home/mgsouza/Documentos/viska_erp_mobile/build/location/generated/res/pngs/release
+com.lyokone.location-resValues-11 /home/mgsouza/Documentos/viska_erp_mobile/build/location/generated/res/resValues/release
+com.lyokone.location-rs-12 /home/mgsouza/Documentos/viska_erp_mobile/build/location/generated/res/rs/release
+com.lyokone.location-mergeReleaseResources-13 /home/mgsouza/Documentos/viska_erp_mobile/build/location/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.lyokone.location-mergeReleaseResources-14 /home/mgsouza/Documentos/viska_erp_mobile/build/location/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.lyokone.location-merged_res-15 /home/mgsouza/Documentos/viska_erp_mobile/build/location/intermediates/merged_res/release

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">308788371795</string>
+    <string name="google_api_key" translatable="false">AIzaSyCQ5ZicSPUohZW6H4Z7PRRAALr0gcqASTs</string>
+    <string name="google_app_id" translatable="false">1:308788371795:android:f1b3ac8d99661555ad81a6</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCQ5ZicSPUohZW6H4Z7PRRAALr0gcqASTs</string>
+    <string name="google_storage_bucket" translatable="false">drywall-9dc6c.appspot.com</string>
+    <string name="project_id" translatable="false">drywall-9dc6c</string>
+</resources>

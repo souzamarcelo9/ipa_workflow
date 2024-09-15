@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "308788371795",
+    "project_id": "drywall-9dc6c",
+    "storage_bucket": "drywall-9dc6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308788371795:android:671d4c68d94d0b35ad81a6",
+        "android_client_info": {
+          "package_name": "com.example.flutter_firebse_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ5ZicSPUohZW6H4Z7PRRAALr0gcqASTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308788371795:android:f1b3ac8d99661555ad81a6",
+        "android_client_info": {
+          "package_name": "com.example.viska_erp_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ5ZicSPUohZW6H4Z7PRRAALr0gcqASTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

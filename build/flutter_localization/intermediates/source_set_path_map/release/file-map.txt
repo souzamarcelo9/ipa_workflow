@@ -1,0 +1,12 @@
+com.mastertipsy.flutter_localization-jetified-window-1.0.0-beta04-0 /home/mgsouza/.gradle/caches/transforms-3/0de068733846f1b04c38605e9acbc120/transformed/jetified-window-1.0.0-beta04/res
+com.mastertipsy.flutter_localization-core-1.6.0-1 /home/mgsouza/.gradle/caches/transforms-3/1861d27e20c3c9a424ed1bc7625c6fd0/transformed/core-1.6.0/res
+com.mastertipsy.flutter_localization-jetified-annotation-experimental-1.1.0-2 /home/mgsouza/.gradle/caches/transforms-3/23a9b25dca926dcda76eb263aee75c9f/transformed/jetified-annotation-experimental-1.1.0/res
+com.mastertipsy.flutter_localization-jetified-window-java-1.0.0-beta04-3 /home/mgsouza/.gradle/caches/transforms-3/cc91323cadad8c9a3b3f9b0909e2994c/transformed/jetified-window-java-1.0.0-beta04/res
+com.mastertipsy.flutter_localization-main-4 /home/mgsouza/.pub-cache/hosted/pub.dev/flutter_localization-0.2.1/android/src/main/res
+com.mastertipsy.flutter_localization-release-5 /home/mgsouza/.pub-cache/hosted/pub.dev/flutter_localization-0.2.1/android/src/release/res
+com.mastertipsy.flutter_localization-pngs-6 /home/mgsouza/Documentos/viska_erp_mobile/build/flutter_localization/generated/res/pngs/release
+com.mastertipsy.flutter_localization-resValues-7 /home/mgsouza/Documentos/viska_erp_mobile/build/flutter_localization/generated/res/resValues/release
+com.mastertipsy.flutter_localization-rs-8 /home/mgsouza/Documentos/viska_erp_mobile/build/flutter_localization/generated/res/rs/release
+com.mastertipsy.flutter_localization-mergeReleaseResources-9 /home/mgsouza/Documentos/viska_erp_mobile/build/flutter_localization/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.mastertipsy.flutter_localization-mergeReleaseResources-10 /home/mgsouza/Documentos/viska_erp_mobile/build/flutter_localization/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.mastertipsy.flutter_localization-merged_res-11 /home/mgsouza/Documentos/viska_erp_mobile/build/flutter_localization/intermediates/merged_res/release

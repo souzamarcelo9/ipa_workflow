@@ -1,0 +1,4 @@
+#Wed Sep 11 12:46:20 BRT 2024
+base.0=/home/mgsouza/Documentos/viska_erp_mobile/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

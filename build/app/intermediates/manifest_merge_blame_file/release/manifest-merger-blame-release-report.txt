@@ -1,0 +1,536 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.viska_erp_mobile"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+8-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="34" />
+9-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+11-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:2:5-79
+11-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:2:22-76
+12    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+12-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:3:5-85
+12-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:3:22-83
+13    <!--
+14         Required to query activities that can process text, see:
+15         https://developer.android.com/training/package-visibility and
+16         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+17
+18         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin.
+19    -->
+20    <queries>
+20-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:47:5-52:15
+21        <intent>
+21-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:48:9-51:18
+22            <action android:name="android.intent.action.PROCESS_TEXT" />
+22-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:49:13-72
+22-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:49:21-70
+23
+24            <data android:mimeType="text/plain" />
+24-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:50:13-50
+24-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:50:19-48
+25        </intent>
+26        <!-- Needs to be explicitly declared on Android R+ -->
+27        <package android:name="com.google.android.apps.maps" />
+27-->[com.google.android.gms:play-services-maps:18.2.0] /home/mgsouza/.gradle/caches/transforms-3/5babebc2ef7b2263401b9f91c73a8e23/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:33:9-64
+27-->[com.google.android.gms:play-services-maps:18.2.0] /home/mgsouza/.gradle/caches/transforms-3/5babebc2ef7b2263401b9f91c73a8e23/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:33:18-61
+28    </queries>
+29
+30    <uses-permission android:name="android.permission.INTERNET" />
+30-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:25:5-67
+30-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:25:22-64
+31    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+31-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:26:5-79
+31-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:26:22-76
+32    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+32-->[com.google.android.recaptcha:recaptcha:18.4.0] /home/mgsouza/.gradle/caches/transforms-3/15eb0dafe1721495c5292d8c87c7bca5/transformed/jetified-recaptcha-18.4.0/AndroidManifest.xml:9:5-98
+32-->[com.google.android.recaptcha:recaptcha:18.4.0] /home/mgsouza/.gradle/caches/transforms-3/15eb0dafe1721495c5292d8c87c7bca5/transformed/jetified-recaptcha-18.4.0/AndroidManifest.xml:9:22-95
+33
+34    <uses-feature
+34-->[com.google.android.gms:play-services-maps:18.2.0] /home/mgsouza/.gradle/caches/transforms-3/5babebc2ef7b2263401b9f91c73a8e23/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:26:5-28:35
+35        android:glEsVersion="0x00020000"
+35-->[com.google.android.gms:play-services-maps:18.2.0] /home/mgsouza/.gradle/caches/transforms-3/5babebc2ef7b2263401b9f91c73a8e23/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:27:9-41
+36        android:required="true" />
+36-->[com.google.android.gms:play-services-maps:18.2.0] /home/mgsouza/.gradle/caches/transforms-3/5babebc2ef7b2263401b9f91c73a8e23/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:28:9-32
+37
+38    <permission
+38-->[androidx.core:core:1.13.1] /home/mgsouza/.gradle/caches/transforms-3/5029a12c75f6d0583d46faaadf5d28d5/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+39        android:name="com.example.viska_erp_mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+39-->[androidx.core:core:1.13.1] /home/mgsouza/.gradle/caches/transforms-3/5029a12c75f6d0583d46faaadf5d28d5/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+40        android:protectionLevel="signature" />
+40-->[androidx.core:core:1.13.1] /home/mgsouza/.gradle/caches/transforms-3/5029a12c75f6d0583d46faaadf5d28d5/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+41
+42    <uses-permission android:name="com.example.viska_erp_mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+42-->[androidx.core:core:1.13.1] /home/mgsouza/.gradle/caches/transforms-3/5029a12c75f6d0583d46faaadf5d28d5/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+42-->[androidx.core:core:1.13.1] /home/mgsouza/.gradle/caches/transforms-3/5029a12c75f6d0583d46faaadf5d28d5/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+43
+44    <application
+45        android:name="android.app.Application"
+45-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:6:9-42
+46        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+46-->[androidx.core:core:1.13.1] /home/mgsouza/.gradle/caches/transforms-3/5029a12c75f6d0583d46faaadf5d28d5/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+47        android:extractNativeLibs="false"
+48        android:icon="@mipmap/ic_launcher"
+48-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:7:9-43
+49        android:label="viska_erp_mobile" >
+49-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:5:9-41
+50        <meta-data
+50-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:8:9-9:77
+51            android:name="com.google.android.geo.API_KEY"
+51-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:8:20-65
+52            android:value="AIzaSyDctEXOYPioACjmwMy2XxrQ9wEJL-AX094" />
+52-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:9:20-75
+53
+54        <activity
+54-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:10:9-31:20
+55            android:name="com.example.viska_erp_mobile.MainActivity"
+55-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:11:13-41
+56            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+56-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:16:13-163
+57            android:exported="true"
+57-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:12:13-36
+58            android:hardwareAccelerated="true"
+58-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:17:13-47
+59            android:launchMode="singleTop"
+59-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:13:13-43
+60            android:taskAffinity=""
+60-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:14:13-36
+61            android:theme="@style/LaunchTheme"
+61-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:15:13-47
+62            android:windowSoftInputMode="adjustResize" >
+62-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:18:13-55
+63
+64            <!--
+65                 Specifies an Android theme to apply to this Activity as soon as
+66                 the Android process has started. This theme is visible to the user
+67                 while the Flutter UI initializes. After that, this theme continues
+68                 to determine the Window background behind the Flutter UI.
+69            -->
+70            <meta-data
+70-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:23:13-26:17
+71                android:name="io.flutter.embedding.android.NormalTheme"
+71-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:24:15-70
+72                android:resource="@style/NormalTheme" />
+72-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:25:15-52
+73
+74            <intent-filter>
+74-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:27:13-30:29
+75                <action android:name="android.intent.action.MAIN" />
+75-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:28:17-68
+75-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:28:25-66
+76
+77                <category android:name="android.intent.category.LAUNCHER" />
+77-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:29:17-76
+77-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:29:27-74
+78            </intent-filter>
+79        </activity>
+80        <activity
+80-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:32:9-35:75
+81            android:name="com.yalantis.ucrop.UCropActivity"
+81-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:33:17-64
+82            android:screenOrientation="portrait"
+82-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:34:17-53
+83            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+83-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:35:17-73
+84        <!--
+85             Don't delete the meta-data below.
+86             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+87        -->
+88        <meta-data
+88-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:38:9-40:33
+89            android:name="flutterEmbedding"
+89-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:39:13-44
+90            android:value="2" />
+90-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:40:13-30
+91
+92        <service
+92-->[:cloud_firestore] /home/mgsouza/Documentos/viska_erp_mobile/build/cloud_firestore/intermediates/merged_manifest/release/AndroidManifest.xml:10:9-14:19
+93            android:name="com.google.firebase.components.ComponentDiscoveryService"
+93-->[:cloud_firestore] /home/mgsouza/Documentos/viska_erp_mobile/build/cloud_firestore/intermediates/merged_manifest/release/AndroidManifest.xml:10:18-89
+94            android:directBootAware="true"
+94-->[com.google.firebase:firebase-common:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/27c3455396742c3b0a4dc7c88c4236c7/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:32:13-43
+95            android:exported="false" >
+95-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:68:13-37
+96            <meta-data
+96-->[:cloud_firestore] /home/mgsouza/Documentos/viska_erp_mobile/build/cloud_firestore/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-13:85
+97                android:name="com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar"
+97-->[:cloud_firestore] /home/mgsouza/Documentos/viska_erp_mobile/build/cloud_firestore/intermediates/merged_manifest/release/AndroidManifest.xml:12:17-134
+98                android:value="com.google.firebase.components.ComponentRegistrar" />
+98-->[:cloud_firestore] /home/mgsouza/Documentos/viska_erp_mobile/build/cloud_firestore/intermediates/merged_manifest/release/AndroidManifest.xml:13:17-82
+99            <meta-data
+99-->[:firebase_auth] /home/mgsouza/Documentos/viska_erp_mobile/build/firebase_auth/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-13:85
+100                android:name="com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar"
+100-->[:firebase_auth] /home/mgsouza/Documentos/viska_erp_mobile/build/firebase_auth/intermediates/merged_manifest/release/AndroidManifest.xml:12:17-124
+101                android:value="com.google.firebase.components.ComponentRegistrar" />
+101-->[:firebase_auth] /home/mgsouza/Documentos/viska_erp_mobile/build/firebase_auth/intermediates/merged_manifest/release/AndroidManifest.xml:13:17-82
+102            <meta-data
+102-->[:firebase_storage] /home/mgsouza/Documentos/viska_erp_mobile/build/firebase_storage/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-13:85
+103                android:name="com.google.firebase.components:io.flutter.plugins.firebase.storage.FlutterFirebaseAppRegistrar"
+103-->[:firebase_storage] /home/mgsouza/Documentos/viska_erp_mobile/build/firebase_storage/intermediates/merged_manifest/release/AndroidManifest.xml:12:17-126
+104                android:value="com.google.firebase.components.ComponentRegistrar" />
+104-->[:firebase_storage] /home/mgsouza/Documentos/viska_erp_mobile/build/firebase_storage/intermediates/merged_manifest/release/AndroidManifest.xml:13:17-82
+105            <meta-data
+105-->[:firebase_core] /home/mgsouza/Documentos/viska_erp_mobile/build/firebase_core/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-13:85
+106                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+106-->[:firebase_core] /home/mgsouza/Documentos/viska_erp_mobile/build/firebase_core/intermediates/merged_manifest/release/AndroidManifest.xml:12:17-124
+107                android:value="com.google.firebase.components.ComponentRegistrar" />
+107-->[:firebase_core] /home/mgsouza/Documentos/viska_erp_mobile/build/firebase_core/intermediates/merged_manifest/release/AndroidManifest.xml:13:17-82
+108            <meta-data
+108-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:69:13-71:85
+109                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+109-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:70:17-109
+110                android:value="com.google.firebase.components.ComponentRegistrar" />
+110-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:71:17-82
+111            <meta-data
+111-->[com.google.firebase:firebase-firestore:25.0.0] /home/mgsouza/.gradle/caches/transforms-3/deee599834b1bb637adee0ed1251c30f/transformed/jetified-firebase-firestore-25.0.0/AndroidManifest.xml:17:13-19:85
+112                android:name="com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar"
+112-->[com.google.firebase:firebase-firestore:25.0.0] /home/mgsouza/.gradle/caches/transforms-3/deee599834b1bb637adee0ed1251c30f/transformed/jetified-firebase-firestore-25.0.0/AndroidManifest.xml:18:17-122
+113                android:value="com.google.firebase.components.ComponentRegistrar" />
+113-->[com.google.firebase:firebase-firestore:25.0.0] /home/mgsouza/.gradle/caches/transforms-3/deee599834b1bb637adee0ed1251c30f/transformed/jetified-firebase-firestore-25.0.0/AndroidManifest.xml:19:17-82
+114            <meta-data
+114-->[com.google.firebase:firebase-firestore:25.0.0] /home/mgsouza/.gradle/caches/transforms-3/deee599834b1bb637adee0ed1251c30f/transformed/jetified-firebase-firestore-25.0.0/AndroidManifest.xml:20:13-22:85
+115                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+115-->[com.google.firebase:firebase-firestore:25.0.0] /home/mgsouza/.gradle/caches/transforms-3/deee599834b1bb637adee0ed1251c30f/transformed/jetified-firebase-firestore-25.0.0/AndroidManifest.xml:21:17-111
+116                android:value="com.google.firebase.components.ComponentRegistrar" />
+116-->[com.google.firebase:firebase-firestore:25.0.0] /home/mgsouza/.gradle/caches/transforms-3/deee599834b1bb637adee0ed1251c30f/transformed/jetified-firebase-firestore-25.0.0/AndroidManifest.xml:22:17-82
+117            <meta-data
+117-->[com.google.firebase:firebase-storage:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/94ca5243219f2f44ba2a331ef53f3c2f/transformed/jetified-firebase-storage-21.0.0/AndroidManifest.xml:30:13-32:85
+118                android:name="com.google.firebase.components:com.google.firebase.storage.FirebaseStorageKtxRegistrar"
+118-->[com.google.firebase:firebase-storage:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/94ca5243219f2f44ba2a331ef53f3c2f/transformed/jetified-firebase-storage-21.0.0/AndroidManifest.xml:31:17-118
+119                android:value="com.google.firebase.components.ComponentRegistrar" />
+119-->[com.google.firebase:firebase-storage:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/94ca5243219f2f44ba2a331ef53f3c2f/transformed/jetified-firebase-storage-21.0.0/AndroidManifest.xml:32:17-82
+120            <meta-data
+120-->[com.google.firebase:firebase-storage:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/94ca5243219f2f44ba2a331ef53f3c2f/transformed/jetified-firebase-storage-21.0.0/AndroidManifest.xml:33:13-35:85
+121                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+121-->[com.google.firebase:firebase-storage:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/94ca5243219f2f44ba2a331ef53f3c2f/transformed/jetified-firebase-storage-21.0.0/AndroidManifest.xml:34:17-107
+122                android:value="com.google.firebase.components.ComponentRegistrar" />
+122-->[com.google.firebase:firebase-storage:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/94ca5243219f2f44ba2a331ef53f3c2f/transformed/jetified-firebase-storage-21.0.0/AndroidManifest.xml:35:17-82
+123            <meta-data
+123-->[com.google.firebase:firebase-appcheck:18.0.0] /home/mgsouza/.gradle/caches/transforms-3/8ddfc7fe464a596ff4c012a81d50768a/transformed/jetified-firebase-appcheck-18.0.0/AndroidManifest.xml:25:13-27:85
+124                android:name="com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckKtxRegistrar"
+124-->[com.google.firebase:firebase-appcheck:18.0.0] /home/mgsouza/.gradle/caches/transforms-3/8ddfc7fe464a596ff4c012a81d50768a/transformed/jetified-firebase-appcheck-18.0.0/AndroidManifest.xml:26:17-120
+125                android:value="com.google.firebase.components.ComponentRegistrar" />
+125-->[com.google.firebase:firebase-appcheck:18.0.0] /home/mgsouza/.gradle/caches/transforms-3/8ddfc7fe464a596ff4c012a81d50768a/transformed/jetified-firebase-appcheck-18.0.0/AndroidManifest.xml:27:17-82
+126            <meta-data
+126-->[com.google.firebase:firebase-appcheck:18.0.0] /home/mgsouza/.gradle/caches/transforms-3/8ddfc7fe464a596ff4c012a81d50768a/transformed/jetified-firebase-appcheck-18.0.0/AndroidManifest.xml:28:13-30:85
+127                android:name="com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckRegistrar"
+127-->[com.google.firebase:firebase-appcheck:18.0.0] /home/mgsouza/.gradle/caches/transforms-3/8ddfc7fe464a596ff4c012a81d50768a/transformed/jetified-firebase-appcheck-18.0.0/AndroidManifest.xml:29:17-117
+128                android:value="com.google.firebase.components.ComponentRegistrar" />
+128-->[com.google.firebase:firebase-appcheck:18.0.0] /home/mgsouza/.gradle/caches/transforms-3/8ddfc7fe464a596ff4c012a81d50768a/transformed/jetified-firebase-appcheck-18.0.0/AndroidManifest.xml:30:17-82
+129            <meta-data
+129-->[com.google.firebase:firebase-common-ktx:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/5e0157e3572d160ab952090b4db52834/transformed/jetified-firebase-common-ktx-21.0.0/AndroidManifest.xml:12:13-14:85
+130                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+130-->[com.google.firebase:firebase-common-ktx:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/5e0157e3572d160ab952090b4db52834/transformed/jetified-firebase-common-ktx-21.0.0/AndroidManifest.xml:13:17-116
+131                android:value="com.google.firebase.components.ComponentRegistrar" />
+131-->[com.google.firebase:firebase-common-ktx:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/5e0157e3572d160ab952090b4db52834/transformed/jetified-firebase-common-ktx-21.0.0/AndroidManifest.xml:14:17-82
+132            <meta-data
+132-->[com.google.firebase:firebase-common:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/27c3455396742c3b0a4dc7c88c4236c7/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:35:13-37:85
+133                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+133-->[com.google.firebase:firebase-common:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/27c3455396742c3b0a4dc7c88c4236c7/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:36:17-109
+134                android:value="com.google.firebase.components.ComponentRegistrar" />
+134-->[com.google.firebase:firebase-common:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/27c3455396742c3b0a4dc7c88c4236c7/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:37:17-82
+135        </service>
+136
+137        <provider
+137-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:11:9-19:20
+138            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+138-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:12:13-82
+139            android:authorities="com.example.viska_erp_mobile.flutter.image_provider"
+139-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:13:13-74
+140            android:exported="false"
+140-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:14:13-37
+141            android:grantUriPermissions="true" >
+141-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:15:13-47
+142            <meta-data
+142-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:16:13-18:75
+143                android:name="android.support.FILE_PROVIDER_PATHS"
+143-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:17:17-67
+144                android:resource="@xml/flutter_image_picker_file_paths" />
+144-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:18:17-72
+145        </provider> <!-- Trigger Google Play services to install the backported photo picker module. -->
+146        <service
+146-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:21:9-33:19
+147            android:name="com.google.android.gms.metadata.ModuleDependencies"
+147-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:22:13-78
+148            android:enabled="false"
+148-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:23:13-36
+149            android:exported="false" >
+149-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:24:13-37
+150            <intent-filter>
+150-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:26:13-28:29
+151                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
+151-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:27:17-94
+151-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:27:25-91
+152            </intent-filter>
+153
+154            <meta-data
+154-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:30:13-32:36
+155                android:name="photopicker_activity:0:required"
+155-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:31:17-63
+156                android:value="" />
+156-->[:image_picker_android] /home/mgsouza/Documentos/viska_erp_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:32:17-33
+157        </service>
+158        <service
+158-->[:geolocator_android] /home/mgsouza/Documentos/viska_erp_mobile/build/geolocator_android/intermediates/merged_manifest/release/AndroidManifest.xml:10:9-14:56
+159            android:name="com.baseflow.geolocator.GeolocatorLocationService"
+159-->[:geolocator_android] /home/mgsouza/Documentos/viska_erp_mobile/build/geolocator_android/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-77
+160            android:enabled="true"
+160-->[:geolocator_android] /home/mgsouza/Documentos/viska_erp_mobile/build/geolocator_android/intermediates/merged_manifest/release/AndroidManifest.xml:12:13-35
+161            android:exported="false"
+161-->[:geolocator_android] /home/mgsouza/Documentos/viska_erp_mobile/build/geolocator_android/intermediates/merged_manifest/release/AndroidManifest.xml:13:13-37
+162            android:foregroundServiceType="location" />
+162-->[:geolocator_android] /home/mgsouza/Documentos/viska_erp_mobile/build/geolocator_android/intermediates/merged_manifest/release/AndroidManifest.xml:14:13-53
+163        <service
+163-->[:location] /home/mgsouza/Documentos/viska_erp_mobile/build/location/intermediates/merged_manifest/release/AndroidManifest.xml:13:9-17:56
+164            android:name="com.lyokone.location.FlutterLocationService"
+164-->[:location] /home/mgsouza/Documentos/viska_erp_mobile/build/location/intermediates/merged_manifest/release/AndroidManifest.xml:14:13-71
+165            android:enabled="true"
+165-->[:location] /home/mgsouza/Documentos/viska_erp_mobile/build/location/intermediates/merged_manifest/release/AndroidManifest.xml:15:13-35
+166            android:exported="false"
+166-->[:location] /home/mgsouza/Documentos/viska_erp_mobile/build/location/intermediates/merged_manifest/release/AndroidManifest.xml:16:13-37
+167            android:foregroundServiceType="location" />
+167-->[:location] /home/mgsouza/Documentos/viska_erp_mobile/build/location/intermediates/merged_manifest/release/AndroidManifest.xml:17:13-53
+168
+169        <activity
+169-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:29:9-46:20
+170            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+170-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:30:13-80
+171            android:excludeFromRecents="true"
+171-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:31:13-46
+172            android:exported="true"
+172-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:32:13-36
+173            android:launchMode="singleTask"
+173-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:33:13-44
+174            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+174-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:34:13-72
+175            <intent-filter>
+175-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:35:13-45:29
+176                <action android:name="android.intent.action.VIEW" />
+176-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:36:17-69
+176-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:36:25-66
+177
+178                <category android:name="android.intent.category.DEFAULT" />
+178-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:38:17-76
+178-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:38:27-73
+179                <category android:name="android.intent.category.BROWSABLE" />
+179-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:39:17-78
+179-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:39:27-75
+180
+181                <data
+181-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:50:13-50
+182                    android:host="firebase.auth"
+183                    android:path="/"
+184                    android:scheme="genericidp" />
+185            </intent-filter>
+186        </activity>
+187        <activity
+187-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:47:9-64:20
+188            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+188-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:48:13-79
+189            android:excludeFromRecents="true"
+189-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:49:13-46
+190            android:exported="true"
+190-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:50:13-36
+191            android:launchMode="singleTask"
+191-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:51:13-44
+192            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+192-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:52:13-72
+193            <intent-filter>
+193-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:53:13-63:29
+194                <action android:name="android.intent.action.VIEW" />
+194-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:36:17-69
+194-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:36:25-66
+195
+196                <category android:name="android.intent.category.DEFAULT" />
+196-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:38:17-76
+196-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:38:27-73
+197                <category android:name="android.intent.category.BROWSABLE" />
+197-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:39:17-78
+197-->[com.google.firebase:firebase-auth:23.0.0] /home/mgsouza/.gradle/caches/transforms-3/4549ac2bdbb4d5f2b9f0231b8ede181c/transformed/jetified-firebase-auth-23.0.0/AndroidManifest.xml:39:27-75
+198
+199                <data
+199-->/home/mgsouza/Documentos/viska_erp_mobile/android/app/src/main/AndroidManifest.xml:50:13-50
+200                    android:host="firebase.auth"
+201                    android:path="/"
+202                    android:scheme="recaptcha" />
+203            </intent-filter>
+204        </activity>
+205
+206        <service
+206-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:24:9-32:19
+207            android:name="androidx.credentials.playservices.CredentialProviderMetadataHolder"
+207-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:25:13-94
+208            android:enabled="true"
+208-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:26:13-35
+209            android:exported="false" >
+209-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:27:13-37
+210            <meta-data
+210-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:29:13-31:104
+211                android:name="androidx.credentials.CREDENTIAL_PROVIDER_KEY"
+211-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:30:17-76
+212                android:value="androidx.credentials.playservices.CredentialProviderPlayServicesImpl" />
+212-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:31:17-101
+213        </service>
+214
+215        <activity
+215-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:34:9-41:20
+216            android:name="androidx.credentials.playservices.HiddenActivity"
+216-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:35:13-76
+217            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+217-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:36:13-87
+218            android:enabled="true"
+218-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:37:13-35
+219            android:exported="false"
+219-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:38:13-37
+220            android:fitsSystemWindows="true"
+220-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:39:13-45
+221            android:theme="@style/Theme.Hidden" >
+221-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/mgsouza/.gradle/caches/transforms-3/5bf7ea7d1ddaef49aea09b308fafb590/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:40:13-48
+222        </activity>
+223
+224        <provider
+224-->[com.google.firebase:firebase-common:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/27c3455396742c3b0a4dc7c88c4236c7/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:23:9-28:39
+225            android:name="com.google.firebase.provider.FirebaseInitProvider"
+225-->[com.google.firebase:firebase-common:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/27c3455396742c3b0a4dc7c88c4236c7/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:24:13-77
+226            android:authorities="com.example.viska_erp_mobile.firebaseinitprovider"
+226-->[com.google.firebase:firebase-common:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/27c3455396742c3b0a4dc7c88c4236c7/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:25:13-72
+227            android:directBootAware="true"
+227-->[com.google.firebase:firebase-common:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/27c3455396742c3b0a4dc7c88c4236c7/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:26:13-43
+228            android:exported="false"
+228-->[com.google.firebase:firebase-common:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/27c3455396742c3b0a4dc7c88c4236c7/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:27:13-37
+229            android:initOrder="100" />
+229-->[com.google.firebase:firebase-common:21.0.0] /home/mgsouza/.gradle/caches/transforms-3/27c3455396742c3b0a4dc7c88c4236c7/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:28:13-36
+230
+231        <uses-library
+231-->[androidx.window:window:1.0.0] /home/mgsouza/.gradle/caches/transforms-3/c659ba957ba65c971228c13dc56c9eda/transformed/jetified-window-1.0.0/AndroidManifest.xml:25:9-27:40
+232            android:name="androidx.window.extensions"
+232-->[androidx.window:window:1.0.0] /home/mgsouza/.gradle/caches/transforms-3/c659ba957ba65c971228c13dc56c9eda/transformed/jetified-window-1.0.0/AndroidManifest.xml:26:13-54
+233            android:required="false" />
+233-->[androidx.window:window:1.0.0] /home/mgsouza/.gradle/caches/transforms-3/c659ba957ba65c971228c13dc56c9eda/transformed/jetified-window-1.0.0/AndroidManifest.xml:27:13-37
+234        <uses-library
+234-->[androidx.window:window:1.0.0] /home/mgsouza/.gradle/caches/transforms-3/c659ba957ba65c971228c13dc56c9eda/transformed/jetified-window-1.0.0/AndroidManifest.xml:28:9-30:40
+235            android:name="androidx.window.sidecar"
+235-->[androidx.window:window:1.0.0] /home/mgsouza/.gradle/caches/transforms-3/c659ba957ba65c971228c13dc56c9eda/transformed/jetified-window-1.0.0/AndroidManifest.xml:29:13-51
+236            android:required="false" /> <!-- Needs to be explicitly declared on P+ -->
+236-->[androidx.window:window:1.0.0] /home/mgsouza/.gradle/caches/transforms-3/c659ba957ba65c971228c13dc56c9eda/transformed/jetified-window-1.0.0/AndroidManifest.xml:30:13-37
+237        <uses-library
+237-->[com.google.android.gms:play-services-maps:18.2.0] /home/mgsouza/.gradle/caches/transforms-3/5babebc2ef7b2263401b9f91c73a8e23/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:39:9-41:40
+238            android:name="org.apache.http.legacy"
+238-->[com.google.android.gms:play-services-maps:18.2.0] /home/mgsouza/.gradle/caches/transforms-3/5babebc2ef7b2263401b9f91c73a8e23/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:40:13-50
+239            android:required="false" />
+239-->[com.google.android.gms:play-services-maps:18.2.0] /home/mgsouza/.gradle/caches/transforms-3/5babebc2ef7b2263401b9f91c73a8e23/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:41:13-37
+240
+241        <activity
+241-->[com.google.android.gms:play-services-auth:20.7.0] /home/mgsouza/.gradle/caches/transforms-3/d11d52c7f16cac6ea37165c3ecab96a9/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:23:9-27:75
+242            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+242-->[com.google.android.gms:play-services-auth:20.7.0] /home/mgsouza/.gradle/caches/transforms-3/d11d52c7f16cac6ea37165c3ecab96a9/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:24:13-93
+243            android:excludeFromRecents="true"
+243-->[com.google.android.gms:play-services-auth:20.7.0] /home/mgsouza/.gradle/caches/transforms-3/d11d52c7f16cac6ea37165c3ecab96a9/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:25:13-46
+244            android:exported="false"
+244-->[com.google.android.gms:play-services-auth:20.7.0] /home/mgsouza/.gradle/caches/transforms-3/d11d52c7f16cac6ea37165c3ecab96a9/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:26:13-37
+245            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+245-->[com.google.android.gms:play-services-auth:20.7.0] /home/mgsouza/.gradle/caches/transforms-3/d11d52c7f16cac6ea37165c3ecab96a9/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:27:13-72
+246        <!--
+247            Service handling Google Sign-In user revocation. For apps that do not integrate with
+248            Google Sign-In, this service will never be started.
+249        -->
+250        <service
+250-->[com.google.android.gms:play-services-auth:20.7.0] /home/mgsouza/.gradle/caches/transforms-3/d11d52c7f16cac6ea37165c3ecab96a9/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:33:9-37:51
+251            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+251-->[com.google.android.gms:play-services-auth:20.7.0] /home/mgsouza/.gradle/caches/transforms-3/d11d52c7f16cac6ea37165c3ecab96a9/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:34:13-89
+252            android:exported="true"
+252-->[com.google.android.gms:play-services-auth:20.7.0] /home/mgsouza/.gradle/caches/transforms-3/d11d52c7f16cac6ea37165c3ecab96a9/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:35:13-36
+253            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+253-->[com.google.android.gms:play-services-auth:20.7.0] /home/mgsouza/.gradle/caches/transforms-3/d11d52c7f16cac6ea37165c3ecab96a9/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:36:13-107
+254            android:visibleToInstantApps="true" />
+254-->[com.google.android.gms:play-services-auth:20.7.0] /home/mgsouza/.gradle/caches/transforms-3/d11d52c7f16cac6ea37165c3ecab96a9/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:37:13-48
+255
+256        <activity
+256-->[com.google.android.gms:play-services-base:18.3.0] /home/mgsouza/.gradle/caches/transforms-3/59c779fa9431fa58c825542cfd863b74/transformed/jetified-play-services-base-18.3.0/AndroidManifest.xml:20:9-22:45
+257            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+257-->[com.google.android.gms:play-services-base:18.3.0] /home/mgsouza/.gradle/caches/transforms-3/59c779fa9431fa58c825542cfd863b74/transformed/jetified-play-services-base-18.3.0/AndroidManifest.xml:20:19-85
+258            android:exported="false"
+258-->[com.google.android.gms:play-services-base:18.3.0] /home/mgsouza/.gradle/caches/transforms-3/59c779fa9431fa58c825542cfd863b74/transformed/jetified-play-services-base-18.3.0/AndroidManifest.xml:22:19-43
+259            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+259-->[com.google.android.gms:play-services-base:18.3.0] /home/mgsouza/.gradle/caches/transforms-3/59c779fa9431fa58c825542cfd863b74/transformed/jetified-play-services-base-18.3.0/AndroidManifest.xml:21:19-78
+260
+261        <meta-data
+261-->[com.google.android.gms:play-services-basement:18.3.0] /home/mgsouza/.gradle/caches/transforms-3/38dfe8d7e4148d082ddbcb1f37010915/transformed/jetified-play-services-basement-18.3.0/AndroidManifest.xml:21:9-23:69
+262            android:name="com.google.android.gms.version"
+262-->[com.google.android.gms:play-services-basement:18.3.0] /home/mgsouza/.gradle/caches/transforms-3/38dfe8d7e4148d082ddbcb1f37010915/transformed/jetified-play-services-basement-18.3.0/AndroidManifest.xml:22:13-58
+263            android:value="@integer/google_play_services_version" />
+263-->[com.google.android.gms:play-services-basement:18.3.0] /home/mgsouza/.gradle/caches/transforms-3/38dfe8d7e4148d082ddbcb1f37010915/transformed/jetified-play-services-basement-18.3.0/AndroidManifest.xml:23:13-66
+264
+265        <provider
+265-->[androidx.emoji2:emoji2:1.2.0] /home/mgsouza/.gradle/caches/transforms-3/fdc5809614c782122577b79012e2a740/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+266            android:name="androidx.startup.InitializationProvider"
+266-->[androidx.emoji2:emoji2:1.2.0] /home/mgsouza/.gradle/caches/transforms-3/fdc5809614c782122577b79012e2a740/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
+267            android:authorities="com.example.viska_erp_mobile.androidx-startup"
+267-->[androidx.emoji2:emoji2:1.2.0] /home/mgsouza/.gradle/caches/transforms-3/fdc5809614c782122577b79012e2a740/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
+268            android:exported="false" >
+268-->[androidx.emoji2:emoji2:1.2.0] /home/mgsouza/.gradle/caches/transforms-3/fdc5809614c782122577b79012e2a740/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
+269            <meta-data
+269-->[androidx.emoji2:emoji2:1.2.0] /home/mgsouza/.gradle/caches/transforms-3/fdc5809614c782122577b79012e2a740/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+270                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+270-->[androidx.emoji2:emoji2:1.2.0] /home/mgsouza/.gradle/caches/transforms-3/fdc5809614c782122577b79012e2a740/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+271                android:value="androidx.startup" />
+271-->[androidx.emoji2:emoji2:1.2.0] /home/mgsouza/.gradle/caches/transforms-3/fdc5809614c782122577b79012e2a740/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+272            <meta-data
+272-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/mgsouza/.gradle/caches/transforms-3/471d5215d0f524fe4c42fc9c5cc7915c/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
+273                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+273-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/mgsouza/.gradle/caches/transforms-3/471d5215d0f524fe4c42fc9c5cc7915c/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
+274                android:value="androidx.startup" />
+274-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/mgsouza/.gradle/caches/transforms-3/471d5215d0f524fe4c42fc9c5cc7915c/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
+275            <meta-data
+275-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+276                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+276-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+277                android:value="androidx.startup" />
+277-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+278        </provider>
+279
+280        <receiver
+280-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+281            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+281-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+282            android:directBootAware="false"
+282-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+283            android:enabled="true"
+283-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+284            android:exported="true"
+284-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+285            android:permission="android.permission.DUMP" >
+285-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+286            <intent-filter>
+286-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+287                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+287-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+287-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+288            </intent-filter>
+289            <intent-filter>
+289-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+290                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+290-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+290-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+291            </intent-filter>
+292            <intent-filter>
+292-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+293                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+293-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+293-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+294            </intent-filter>
+295            <intent-filter>
+295-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+296                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+296-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+296-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/mgsouza/.gradle/caches/transforms-3/155064fba9ab583e8eb99391cc0f7b0f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+297            </intent-filter>
+298        </receiver>
+299    </application>
+300
+301</manifest>

@@ -1,0 +1,67 @@
+{
+  "login": "Login",
+  "notHaveAccountRegister": "Don\\'t have an account? ",
+  "register": "Register",
+  "createAnAccount": "Register",
+  "signInWithGoogle": "Sign in with Google",
+
+  "email": "Email",
+  "fillFieldWithYourEmail": "Fill the field with your email.",
+  "invalidEmail": "Invalid email.",
+
+  "password": "Password",
+  "fillFieldYourPassword": "Fill the field with your password",
+  "passwordMustBeAtLeast6CharactersLong": "Password must be at least 6 characters long",
+  "passwordMustBeAtLeast20CharactersLong": "Password must be a maximum of 20 characters",
+
+  "attention": "Attention",
+  "errorOccurredLoggingAccount": "An error occurred while logging into your account!\nPlease try again later.",
+  "errorOccurredUpdatingProfile": "An error occurred while updating profile!\nTry again later.",
+  "userAlreadyExists": "User already exists!\nDo not try again.",
+
+  "enter": "To enter",
+
+  "addProfilePhoto": "Add a profile photo",
+  "name": "Name",
+  "fillFieldYourName": "Fill the field with your name.",
+  "nameMustHaveLeast3Characters": "The name must have at least 3 characters.",
+  "nameMustHaveMaximum30Characters": "The name must have a maximum of 30 characters",
+
+  "cpf": "CPF",
+  "fillFieldWithYourCpf": "Fill the field with your CPF.",
+  "invalidCpf": "Invalid CPF.",
+  "cpfMustHaveElevenDigits": "The CPF must have 11 digits.",
+
+  "cellPhone": "Cellphone",
+  "fillFieldWithYourPhoneNumber": "Fill the field with your Phone Number.",
+  "phoneMustHave14Digits": "Phone must have 14 digits.",
+
+  "selectYourMaritalStatus": "Select your Marital Status",
+  "married":  "Married",
+  "single": "Single",
+  "divorced": "Divorced",
+  "widower": "Widower",
+
+  "selectYourGenre": "Select your Gender",
+  "male": "Male",
+  "feminine": "Feminine",
+  "other": "Other(s)",
+
+  "myProfile": "My Profile",
+  "editProfile": "Edit Profile",
+  "deleteAccount": "Delete Account",
+  "toGoOut": "To Go Out",
+  "youWantDeleteYourAccount": "Are you sure you want to delete your account?",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "save": "Save",
+  "saveEditions": "Save editions",
+  "disconnectFromApp": "Are you sure you want to disconnect from the app?",
+
+  "language": "Language",
+  "selectPreferredLanguage": "Select your preferred language below:",
+  "selectTheLanguage": "Select the language",
+  "portuguese": "Portuguese",
+  "english": "English",
+  "spanish": "Spanish"
+}
