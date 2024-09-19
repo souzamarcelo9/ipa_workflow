@@ -11,6 +11,9 @@ class AtividadeProducaoModel {
   double totalEmpresa;
   double totalProfissional;
   int totalSoft;
+  String nomeProfissional;
+  String emailProfissional;
+  String url;
 
   AtividadeProducaoModel({
     this.id = '',
@@ -22,7 +25,10 @@ class AtividadeProducaoModel {
     this.quantidade = 0,
     this.totalEmpresa = 0,
     this.totalProfissional = 0,
-    this.totalSoft = 0
+    this.totalSoft = 0,
+    this.nomeProfissional = '',
+    this.emailProfissional = '',
+    this.url = '',
   });
 
   Map<String, dynamic> toMap() {
@@ -37,6 +43,9 @@ class AtividadeProducaoModel {
       "totalEmpresa": totalEmpresa,
       "totalProfissional": totalProfissional,
       "totalSoft": totalSoft,
+      "nomeProfissional": nomeProfissional,
+      "emailProfissional": emailProfissional,
+      "url": url,
     };
     return map;
   }
@@ -53,6 +62,9 @@ class AtividadeProducaoModel {
       totalEmpresa: dados?['totalEmpresa'] ?? '',
       totalProfissional: dados?['totalProfissional'] ?? '',
         totalSoft: dados?['totalSoft'] ?? 0,
+      nomeProfissional: dados?['nomeProfissional'] ?? '',
+      emailProfissional: dados?['emailProfissional'] ?? '',
+      url: dados?['url'] ?? '',
     );
   }
   factory AtividadeProducaoModel.fromFirestore(
@@ -71,6 +83,9 @@ class AtividadeProducaoModel {
       totalEmpresa: data['totalEmpresa'],
       totalProfissional: data['totalProfissional'],
       totalSoft: data['totalSoft'],
+      nomeProfissional: data['nomeProfissional'],
+      emailProfissional: data['emailProfissional'],
+      url: data['url'],
     );
   }
   Map<String, dynamic> toFirestore() {
@@ -85,6 +100,9 @@ class AtividadeProducaoModel {
       "totalEmpresa": totalEmpresa,
       "totalProfissional":totalProfissional,
       "totalSoft":totalSoft,
+      "nomeProfissional":nomeProfissional,
+      "emailProfissional":emailProfissional,
+      "url":url,
     };
   }
 

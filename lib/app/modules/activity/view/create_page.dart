@@ -825,6 +825,9 @@ class _CreatePageState extends State<CreatePage> {
         atividadeProd.totalProfissional = ( atividadeProd.totalSoft * atividadeProd.usProfissional );
         //total Empresa
         atividadeProd.totalEmpresa = ( atividadeProd.totalSoft * atividadeProd.usEmpresa );
+        atividadeProd.url = controller.userModel.userImage;
+        atividadeProd.emailProfissional = controller.userModel.email;
+        atividadeProd.nomeProfissional = controller.userModel.name;
 
         try {
           await db
@@ -878,6 +881,9 @@ class _CreatePageState extends State<CreatePage> {
         atividadeInsul.totalProfissional = ( atividadeInsul.totalSoft * atividadeInsul.usProfissional );
         //total Empresa
         atividadeInsul.totalEmpresa = ( atividadeInsul.totalSoft * atividadeInsul.usEmpresa );
+        atividadeInsul.url = controller.userModel.userImage;
+        atividadeInsul.emailProfissional = controller.userModel.email;
+        atividadeInsul.nomeProfissional = controller.userModel.name;
 
           try {
             await db
