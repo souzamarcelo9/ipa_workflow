@@ -81,7 +81,7 @@ class _SchedulePageState extends State<SchedulePage> {
     try {
       await FirebaseFirestore.instance.collection('obras')
           .where("formam", isEqualTo: idFormam)
-           //.orderBy("dtEntrega",descending: true)
+           .orderBy("dtEntrega",descending: true)
           .get()
           .then((querySnapshot) {
         for (var docSnapshot in querySnapshot.docs) {
@@ -194,36 +194,49 @@ class _SchedulePageState extends State<SchedulePage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Scaffold(
-            backgroundColor: Colors.pink.shade50,
-            appBar: topAppBar,
+            backgroundColor: Colors.white,
+            appBar:
+              AppBar(
+                title: const Text('Cronograma de Trabalho',style: TextStyle(color: Colors.white),),
+                centerTitle: true,
+                backgroundColor: Colors.blue,
+              ),
             body: ListView.builder(
               itemCount: listaObra.length,
               shrinkWrap: true,
               padding: EdgeInsets.only(top: 10,bottom: 10),
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int index){
-                return ListTile(
-                  title: Text(
-                    listaObra[index].dtCriacao.toString(),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    '${listaObra[index].nome}  -  ${listaObra[index].empresa}',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/5233/5233805.png'),
-                  ),
+                return Card(
+                      child:
+                      ListTile(
+                      title: Text(
+                        listaObra[index].dtCriacao.toString(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        '${listaObra[index].nome}  -  ${listaObra[index].empresa}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/5233/5233805.png'),
+                      ),
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text('Prazo de entrega em ${DateFormat("dd.MM.yyyy").format(listaObra[index].dtEntrega.toDate())}'),
+                          ));
+                        },
+                    )
                 );
               },
             ),
@@ -248,7 +261,7 @@ class _SchedulePageState extends State<SchedulePage> {
     );
   }*/
 
-  late final topAppBar = AppBar(
+  /*late final topAppBar = AppBar(
       title: Card(
         child: TextField(
           decoration: InputDecoration(
@@ -260,7 +273,7 @@ class _SchedulePageState extends State<SchedulePage> {
           },
         ),
       ));
-
+*/
   late final makeBody =
     ListView.builder(
       itemCount: listaObra.length,

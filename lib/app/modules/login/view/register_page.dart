@@ -493,7 +493,7 @@ class _RegisterPageState extends State<RegisterPage> {
        var db = FirebaseFirestore.instance;
 
        _profissionalModel.nome = usuario.name;
-       _profissionalModel.idTipoProfissional = 0;
+       _profissionalModel.idTipoProfissional = '';
        _profissionalModel.status = 'Inativo';
        _profissionalModel.dtInicio = DateFormat("dd.MM.yyyy").format(DateTime.now());
        _profissionalModel.usuario = usuario.email;

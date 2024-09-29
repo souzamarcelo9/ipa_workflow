@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 import 'package:viska_erp_mobile/app/model/card_equipment.dart';
 import 'package:viska_erp_mobile/app/model/messenger.dart';
 import 'package:viska_erp_mobile/app/model/profissional.dart';
@@ -199,7 +200,7 @@ class _ChatPageState extends State<ChatPage> {
                         color: (listaMessenger[index].messageType  == "receiver"?Colors.blueGrey[100]:Colors.blue[200]),
                       ),
                       padding: EdgeInsets.all(16),
-                      child: Text(listaMessenger[index].messageContent, style: TextStyle(fontSize: 15),),
+                      child: Text('${listaMessenger[index].messageContent}(${DateFormat("dd.MM.yyyy").format(listaMessenger[index].dtHora.toDate())})', style: TextStyle(fontSize: 15),),
                     ),
                   ),
                 );

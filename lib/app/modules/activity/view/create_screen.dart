@@ -533,7 +533,9 @@ class _CreateScreenState extends State<CreateScreen> {
                             unidade: unidadeController.text == '' ? 0 : int.parse(unidadeController.text),
                             usuario:emailController.text,
                             dtModificacao: Timestamp.now(),
-                            altura: alturaController.text);
+                            altura: alturaController.text,
+                            status: 'A'
+                        );
                       });
                       _pressedCreate = true;
                       _disabled = false;

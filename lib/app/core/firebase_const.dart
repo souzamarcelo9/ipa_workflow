@@ -10,4 +10,5 @@ abstract class FirebaseConst{
   static const String fotoAtividade = 'fotoObraAtividade';
   static const String atividadeHora = 'tbAtividadeHora';
   static const String messenger = 'messenger';
+  static const String tipoTabelaProf = 'tipoTbProfissional';
 }

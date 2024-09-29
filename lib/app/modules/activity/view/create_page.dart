@@ -17,6 +17,7 @@ import '../../../core/firebase_const.dart';
 import '../../../model/obra.dart';
 import '../../../model/tbInsuladora.dart';
 import '../../../model/tbProducao.dart';
+import '../../../model/tipoTabelaProfissional.dart';
 import '../../../widgets/alert.dart';
 import '../../home/store/home_store.dart';
 
@@ -39,6 +40,8 @@ class _CreatePageState extends State<CreatePage> {
   AtividadeModel _atividadeModel = AtividadeModel();
   late ProfissionalModel profissionalDB = ProfissionalModel();
   late ProfissionalModel profissional = ProfissionalModel();
+  late List<ProducaoModel> listaProducao = [];
+  late List<InsuladoraModel> listaInsuladora = [];
   final HomeStore controller = Modular.get();
   final nameController = TextEditingController();
   final emailController = TextEditingController();
@@ -54,7 +57,7 @@ class _CreatePageState extends State<CreatePage> {
   final _statesController = WidgetStatesController();
   final _statesAvancar = WidgetStatesController();
   final _editableKey = GlobalKey<EditableState>();
-  List rowsProducao = [
+  /*List rowsProducao = [
     {
       "folha": '8 (1/2)',
       "qtde": '',
@@ -115,11 +118,12 @@ class _CreatePageState extends State<CreatePage> {
       "qtde": '',
       "ft": '',
     },
-  ];
+  ];*/
+  List rowsProducao = [];
   List colsProducao = [
-    {"title": 'Folha DryWall', 'widthFactor': 0.4, 'key': 'folha', 'editable': false},
+    {"title": 'Folha DryWall', 'widthFactor': 0.5, 'key': 'folha', 'editable': false},
     {"title": 'Quantidade', 'widthFactor': 0.3, 'key': 'qtde'},
-    {"title": 'FT', 'widthFactor': 0.3, 'key': 'ft'},
+    {"title": 'FT', 'widthFactor': 0.2, 'key': 'ft'},
     //{"title": 'Status', 'key': 'status'},
   ];
 
@@ -155,18 +159,38 @@ class _CreatePageState extends State<CreatePage> {
     _ageCrt.text = "18";
     profissional = Modular.args.data;
 
-    if(profissional.tbProd.length == 1 ) {
-      listColumns = colsProducao;
-      listRows = rowsProducao;
-    }
-    else{
-      listColumns = colsInsuladora;
-      listRows = rowsInsuladora;
-    }
-
     onInit();
     //_profissionais = FirebaseFirestore.instance.collection('profissionais');
+
+    if(profissional.idTipoProfissional == 'P') {
+
+      rowsProducao = [];
+      for (var row in profissional.listaTBProd) {
+        setState(() {
+          listRows.add( {
+            "folha": row.drywall,
+            "qtde": '',
+            "ft": '',
+            "status": ''
+          });
+        });
+      }
+      setState(() {
+        listColumns = colsProducao;
+        //listRows = rowsProducao;
+      });
+
+
+    }
+    else {
+      setState(() {
+        listColumns = colsInsuladora;
+        listRows = rowsInsuladora;
+        //listRows = profissional.listaTBProd;
+      });
+    }
     super.initState();
+
   }
 
   void _addNewRow() {
@@ -202,20 +226,6 @@ class _CreatePageState extends State<CreatePage> {
 
     profissional = Modular.args.data;
 
-    if(profissional.tbProd.length == 1 ) {
-      setState(() {
-        listColumns = colsProducao;
-        listRows = rowsProducao;
-      });
-
-    }
-    else {
-      setState(() {
-        listColumns = colsInsuladora;
-        listRows = rowsInsuladora;
-      });
-    }
-
     //_selectTbUser(emailController.text);
     /*FirebaseFirestore.instance
         .collection('profissionais')
@@ -225,17 +235,33 @@ class _CreatePageState extends State<CreatePage> {
       firstNameController.text = snapshot.docs.first['tbProd'];
     });*/
 
-    //var collectionProfissional = FirebaseFirestore.instance.collection('profissionais');
-    /*collection.snapshots().listen((querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        Map<String, dynamic> data = doc.data();
-        if( data['email'].toString() == emailController.text.toString()) {
-          var tbProd = data['tbProd'].toString(); // <-- Retrieving the value.
-          tbProdController.text = tbProd;
-          print(tbProd);
-        }
+    //await fillExcelTituloColuna();
+
+  }
+
+  Future<void> fillExcelTituloColuna() async{
+
+    if(profissional.idTipoProfissional == 'P'){
+      rowsProducao = [];
+      for (var row in profissional.listaTBProd) {
+         rowsProducao.add( {
+            "folha": row.drywall,
+            "qtde": '',
+            "ft": '',
+            "status": ''
+          });
       }
-    });*/
+    }
+    else{
+      rowsInsuladora = [];
+      for (var row in listaInsuladora) {
+        rowsInsuladora.add( {
+          "tipo": row.tipo,
+          "qtde": '',
+          "soft": ''
+        });
+      }
+    }
 
   }
 
@@ -416,7 +442,7 @@ class _CreatePageState extends State<CreatePage> {
                SizedBox(height: 50.0,width: 500.0,child:
                StreamBuilder<QuerySnapshot>(
                    stream: FirebaseFirestore.instance
-                       .collection("profissionais")
+                       .collection(FirebaseConst.tipoTabelaProf)
                        .snapshots(),
                    builder: (context, snapshot) {
                      if (snapshot.hasError) {
@@ -429,7 +455,7 @@ class _CreatePageState extends State<CreatePage> {
                        return const CircularProgressIndicator();
                      } else {
                        final selectTabela = snapshot.data?.docs
-                           .where((doc) => doc['email'].toLowerCase().contains(emailController.text.toLowerCase())).toList();
+                           .where((doc) => doc['idtTabela'].contains(profissional.tbProd)).toList();
 
                        if (selectTabela != null) {
                          for (var tabela in selectTabela) {
@@ -437,7 +463,7 @@ class _CreatePageState extends State<CreatePage> {
                              DropdownMenuItem(
                                value: tabela.id,
                                child: Text(
-                                 getTableText(tabela['tbProd']),
+                                 tabela['desc'],
                                ),
                              ),
                            );
@@ -466,6 +492,7 @@ class _CreatePageState extends State<CreatePage> {
                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                setState(() {
                                  selectedTabela = tabela;
+                                 //listRows = rowsProducao;
                                });
 
                              },
@@ -614,7 +641,9 @@ class _CreatePageState extends State<CreatePage> {
                                  unidade: unidadeController.text == '' ? 0 : int.parse(unidadeController.text),
                                  usuario:emailController.text,
                                  dtModificacao: Timestamp.now(),
-                                 altura: alturaController.text);
+                                 altura: alturaController.text,
+                                 status: 'A'
+                             );
                            });
                            _pressedCreate = true;
                            _disabled = false;
@@ -669,7 +698,7 @@ class _CreatePageState extends State<CreatePage> {
 
   }
 
-  void trocaTabelaProdutiva(selectTabela){
+ /* void trocaTabelaProdutiva(selectTabela){
     if(selectTabela.toString().length == 1) {
       setState(() {
         listRows = rowsProducao;
@@ -682,7 +711,7 @@ class _CreatePageState extends State<CreatePage> {
       });
     }
 
-  }
+  }*/
   Future<dynamic> showMessage() async{
      WidgetsBinding.instance.addPostFrameCallback((_) => alertDialog(
         context,
@@ -745,7 +774,7 @@ class _CreatePageState extends State<CreatePage> {
     setState(() {
       idAtividade = docRef.id;
     });
-    _createWorkTables(idAtividade,atividade.tabela);
+    _createWorkTables(idAtividade,profissional.tbProd);
     return docRef;
   }
 
@@ -758,46 +787,30 @@ class _CreatePageState extends State<CreatePage> {
     ProducaoModel producaoModel = ProducaoModel();
     InsuladoraModel insuladoraModel = InsuladoraModel();
     List editedRows = _editableKey.currentState!.editedRows;
+    TipoTabelaProfissionalModel tipoTabelaProfModelDB = TipoTabelaProfissionalModel();
 
-    if (tipoTabela.length == 1) {
-      tbProd = "tbProd$tipoTabela";
+    try {
+      DocumentSnapshot snapshot =
+      await FirebaseFirestore.instance.collection(FirebaseConst.tipoTabelaProf)
+          .doc(profissional.id)
+          .get();
+      tipoTabelaProfModelDB = TipoTabelaProfissionalModel.fromMap(snapshot.data() as Map, snapshot.reference.id);
     }
-    else {
-      tbProd = "tbInsul${tipoTabela.substring(0, 1)}";
+    catch(e) {
+      print(e);
     }
 
-    //Obtém o detalhe da tabela produtiva do profissional tbprod1,tbprod2, etc
-    /* await db.collection(tbProd).get().then(
-          (querySnapshot) {
-
-        for (var docSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> response = docSnapshot.data();
-          if(tipoTabela.length == 1) {
-
-            tbProducao.add(ProducaoModel.fromMap(response));
-          }
-          else
-          {
-            tbInsuladora.add(InsuladoraModel.fromMap(response));
-          }
-        }
-
-      },
-      onError: (e) => print("Error completing: $e"),
-    );*/
+    tbProd = tipoTabelaProfModelDB.idtTabela;
 
     for (int i = 0; i < editedRows.length; i++) {
 
-      if (tipoTabela.length == 1) {
-        /*for (var tabela in tbProducao)
-        {*/
-        //print(tabela.drywall);
+      if (tipoTabelaProfModelDB.tipo == 'P') {
 
         AtividadeProducaoModel atividadeProd = AtividadeProducaoModel();
         atividadeProd.idAtividade = idAtividade;
         atividadeProd.totalProfissional = 0;
         atividadeProd.totalEmpresa = 0;
-        atividadeProd.drywall = getRowTypeProd(i.toString());
+        atividadeProd.drywall = getRowTypeProd(i);
 
         await db.collection(tbProd).where("drywall", isEqualTo: atividadeProd.drywall).get().then(
               (querySnapshot) {
@@ -915,8 +928,10 @@ class _CreatePageState extends State<CreatePage> {
     return null;
   }
 
-  String getRowTypeProd(String row){
-    switch (row) {
+  String getRowTypeProd(int row){
+
+    return profissional.listaTBProd[row].drywall;
+    /*switch (row) {
       case '0':
         return '8 (1/2)';
         break;
@@ -949,7 +964,7 @@ class _CreatePageState extends State<CreatePage> {
         break;
       default:
         return 'Não selecionada';
-    }
+    }*/
   }
   String getRowTypeInsul(String row){
     switch (row) {

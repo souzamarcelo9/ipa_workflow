@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 import 'package:viska_erp_mobile/app/model/AtividadeInsuladora.dart';
+import 'package:viska_erp_mobile/app/model/profissional.dart';
+import 'package:viska_erp_mobile/app/model/tipoTabelaProfissional.dart';
 import '../../../core/firebase_const.dart';
 import '../../../model/AtividadeProducao.dart';
 import '../../../model/atividade.dart';
@@ -34,6 +36,7 @@ class _ExtratoPageState extends State<ExtratoPage> {
   late List<AtividadeModel> listaAtividadesDB = [];
   late List<AtividadeProducaoModel> tbProducao = [];
   late List<AtividadeInsuladoraModel> tbInsuladora = [];
+  late TipoTabelaProfissionalModel _tipoTabelaProfissionalModelModel = TipoTabelaProfissionalModel();
 
   void onInit() async {
     await controller.recoverUserData();
@@ -51,8 +54,29 @@ class _ExtratoPageState extends State<ExtratoPage> {
     });
   }
 
+  Future<TipoTabelaProfissionalModel> getProfissionalData(String idTabela) async {
+    //RECUPERA DADOS DO PROFISSIONAL
+    try {
+      await FirebaseFirestore.instance.collection(FirebaseConst.tipoTabelaProf)
+          .where("idtTabela", isEqualTo: idTabela)
+          .get()
+          .then((querySnapshot) {
+        for (var docSnapshot in querySnapshot.docs) {
+          Map<String, dynamic> response = docSnapshot.data();
+
+          _tipoTabelaProfissionalModelModel = TipoTabelaProfissionalModel.fromMap(response, docSnapshot.reference.id);
+        }
+      });
+    }
+    catch (e) {
+      print(e);
+    }
+    return _tipoTabelaProfissionalModelModel;
+  }
+
   Future<void> getData(DateTime ?dtInicio,DateTime ?dtFim) async{
     //RECUPERA TODAS AS ATIVIDADES DO PROFISSIONAL
+    TipoTabelaProfissionalModel tipoTabelaModel = TipoTabelaProfissionalModel();
 
     if(dtInicio == null) {
       try {
@@ -97,11 +121,11 @@ class _ExtratoPageState extends State<ExtratoPage> {
 
           DateTime dateTime1 = DateTime.parse(atividade.dtModificacao!.toDate().toString());
            //data fim depois do range elimina
-             if(dtFim!.isAfter(dateTime1) && DateUtils.isSameDay(dateTime1, dtFim) == false) {
-               toRemove.add(atividade.id);
+             if(dtInicio!.isAfter(dateTime1) && DateUtils.isSameDay(dateTime1, dtFim) == false) {
+               toRemove.add(atividade.id); //se dtfim > dataAtv e nao sao estao no mesmo dia
              }
           //data de início antes do range elimina
-            if(dtInicio!.isBefore(dateTime1) && DateUtils.isSameDay(dateTime1, dtFim) == false) {
+            if(dtFim!.isBefore(dateTime1) && DateUtils.isSameDay(dateTime1, dtFim) == false) {
               toRemove.add(atividade.id);
           }
 
@@ -116,7 +140,9 @@ class _ExtratoPageState extends State<ExtratoPage> {
     try {
     for (var atividade in listaAtividades)
     {
-      if(atividade.tabela.length == 1){
+      tipoTabelaModel = await getProfissionalData(atividade.tabela);
+
+      if(tipoTabelaModel.tipo == "P"){
 
         await FirebaseFirestore.instance.collection(FirebaseConst.atividadeProducao).where("idAtividade", isEqualTo:atividade.id ).get().then(
                 (querySnapshot)
@@ -128,7 +154,7 @@ class _ExtratoPageState extends State<ExtratoPage> {
                 cardExtrato.nomeObra = atividade.nomeObra;
                 cardExtrato.dataAtividade = atividade.data;
                 cardExtrato.valor = producaoModel.totalProfissional;
-                cardExtrato.idAtividade = atividade.tabela.length == 1 ? 'Atividade Produção' : 'Atividade Insuladora';
+                cardExtrato.idAtividade = atividade.status;// == 'A' ? 'Atividade Produção' : 'Atividade Insuladora';
 
                 /*if(_dataInicial.isNotEmpty){
                   if(_dataInicial )
@@ -150,7 +176,7 @@ class _ExtratoPageState extends State<ExtratoPage> {
                 cardExtrato.nomeObra = atividade.nomeObra;
                 cardExtrato.dataAtividade = atividade.data;
                 cardExtrato.valor = insuladoraModel.totalProfissional;
-                cardExtrato.idAtividade = atividade.tabela.length == 1 ? 'Atividade Produção' : 'Atividade Insuladora';
+                cardExtrato.idAtividade = atividade.status;//tipoTabelaModel.tipo == 'P' ? 'Atividade Produção' : 'Atividade Insuladora';
                 if(insuladoraModel.totalProfissional > 0){
                   listaExtratoSelect.add(cardExtrato);
                   }
@@ -222,10 +248,10 @@ class _ExtratoPageState extends State<ExtratoPage> {
             decoration: BoxDecoration(
                 border: Border(
                     right: BorderSide(width: 1.0, color: Colors.white24))),
-            child: Icon(Icons.autorenew, color: Colors.white),
+            child: Icon(Icons.monetization_on_sharp, color: Colors.white),
           ),
           title: Text(
-            'Obra - ${card.nomeObra}',
+            '${card.nomeObra} - ${card.dataAtividade}',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
@@ -237,16 +263,15 @@ class _ExtratoPageState extends State<ExtratoPage> {
                   child: Container(
                     // tag: 'hero',
                     child: LinearProgressIndicator(
-                        backgroundColor: Color.fromRGBO(
-                            255, 255, 255, 1.0),
+                        backgroundColor: Color.fromRGBO(255, 255, 255, 1.0),
                         value: card.valor.toDouble(),
-                        valueColor: AlwaysStoppedAnimation(Colors.green)),
+                        valueColor: card.idAtividade == 'P' ? AlwaysStoppedAnimation(Colors.green) : AlwaysStoppedAnimation(Colors.red)),
                   )),
               Expanded(
                 flex: 4,
                 child: Padding(
                     padding: EdgeInsets.only(left: 10.0),
-                    child: Text(card.dataAtividade,
+                    child: Text(card.idAtividade == 'P' ? 'Pago' : 'A receber',
                         style: TextStyle(color: Colors.white))),
               ),
               Expanded(
@@ -298,17 +323,20 @@ class _ExtratoPageState extends State<ExtratoPage> {
           ),
         );
 
-    final makeBody = Container(
+    final makeBody =
+    listaExtrato.isNotEmpty ?
+    Container(
       // decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, 1.0)),
-      child: listaExtrato.isNotEmpty ? ListView.builder(
+      child:
+      ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: listaExtrato.length,
         itemBuilder: (BuildContext context, int index) {
           return makeCard(listaExtrato[index]);
         },
-      ) : Center(child:Text('Nenhuma informação disponível',style: TextStyle(color:Colors.red),))
-    );
+      )
+    ) : Center(child:Text('Buscando informações...',style: TextStyle(color:Colors.red),));
 
     final makeBottom = SizedBox(
       height: 55.0,

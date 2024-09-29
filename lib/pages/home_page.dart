@@ -5,6 +5,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:viska_erp_mobile/app/model/card_equipment.dart';
+import 'package:viska_erp_mobile/app/model/tipoTabelaProfissional.dart';
 import 'package:viska_erp_mobile/app/model/veiculo.dart';
 import 'package:viska_erp_mobile/theme/colors.dart';
 import 'package:viska_erp_mobile/widgets/service_box.dart';
@@ -20,6 +21,8 @@ import '../app/model/atividade.dart';
 import '../app/model/card_transaction.dart';
 import '../app/model/ferramenta.dart';
 import '../app/model/profissional.dart';
+import '../app/model/tbInsuladora.dart';
+import '../app/model/tbProducao.dart';
 import '../app/modules/home/store/home_store.dart';
 
 class HomePage extends material.StatefulWidget {
@@ -46,8 +49,97 @@ class _HomePageState extends State<HomePage> {
   late ProfissionalModel _profissionalDB = ProfissionalModel();
   late FerramentaModel _ferramentaModel = FerramentaModel();
   late VeiculoModel _veiculoModel = VeiculoModel();
+  late TipoTabelaProfissionalModel tipoTabelaProfModelDB = TipoTabelaProfissionalModel();
+  late TipoTabelaProfissionalModel _tipoTabelaProfModel = TipoTabelaProfissionalModel();
   late double seuSaldo = 0;
   final _auth = FirebaseAuth.instance;
+  late List<ProducaoModel> listaProducao = [];
+  late List<ProducaoModel> listaProducaoBD = [];
+  late List<InsuladoraModel> listaInsuladora = [];
+  List listColumns = [];
+  TipoTabelaProfissionalModel _tipoTabelaProfissionalModelModel = TipoTabelaProfissionalModel();
+  List<ProducaoModel> listRowsProfissional = [];
+  List rowsProducao = [
+    {
+      "folha": '8 (1/2)',
+      "qtde": '',
+      "ft": '',
+      "status": 'completed'
+    },
+    {
+      "folha": '9 (1/2)',
+      "ft": '',
+      "status": 'new',
+      "qtde": '',
+    },
+    {
+      "ft": '',
+      "folha": '10 (1/2)',
+      "qtde": '',
+      "status": 'expert'
+    },
+    {
+      "folha": '11 (1/2)',
+      "status": '',
+      "qtde": '',
+      "ft": '',
+    },
+    {
+      "folha": '12 (1/2)',
+      "status": '',
+      "qtde": '',
+      "ft": '',
+    },
+    {
+      "folha": '8 (5/8)',
+      "status": '',
+      "qtde": '',
+      "ft": '',
+    },
+    {
+      "folha": '9 (5/8)',
+      "status": '',
+      "qtde": '',
+      "ft": '',
+    },
+    {
+      "folha": '10 (5/8)',
+      "status": '',
+      "qtde": '',
+      "ft": '',
+    },
+    {
+      "folha": '11 (5/8)',
+      "status": '',
+      "qtde": '',
+      "ft": '',
+    },
+    {
+      "folha": '12 (5/8)',
+      "status": '',
+      "qtde": '',
+      "ft": '',
+    },
+  ];
+
+  List rowsInsuladora = [
+    {
+      "tipo": 'ROSA',
+      "qtde": '',
+      "soft": '',
+    },
+    {
+      "tipo": 'ROXEL',
+      "qtde": '',
+      "soft": '',
+    },
+    {
+      "tipo": 'STIQUIPIN',
+      "qtde": '',
+      "soft": '',
+    },
+
+  ];
 
   @override
   void initState() {
@@ -72,7 +164,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       listaTransacoes = listaTransacoesSelect;
       _profissionalModel = _profissionalDB;
-
+      _tipoTabelaProfModel = tipoTabelaProfModelDB;
     });
 
     await getEquipments();
@@ -82,6 +174,27 @@ class _HomePageState extends State<HomePage> {
       listaEquipamentos = listaEquipamentosSelect;
     });
 
+    await getFullTableProdProfessional(_tipoTabelaProfModel.idtTabela,_tipoTabelaProfModel.tipo);
+    await fillExcelTituloColuna();
+
+    /*if(_profissionalModel.idTipoProfissional == 'P') {
+      setState(() {
+        listRowsProfissional = rowsProducao;
+      });
+
+    }
+    else {
+      setState(() {
+        listRowsProfissional = rowsInsuladora;
+      });
+    }*/
+
+    setState(() {
+      listaProducao = listaProducaoBD;
+      _profissionalModel.listaTBProd = listaProducao;
+    });
+    _profissionalModel.listaTBProd = listaProducao;
+
   }
 
   @override
@@ -90,6 +203,66 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: material.Colors.transparent,
       body: _buildBody(),
     );
+  }
+
+  Future<void> fillExcelTituloColuna() async{
+
+    if(_profissionalModel.idTipoProfissional == 'P'){
+      rowsProducao = [];
+      for (var row in listaProducao) {
+        /*rowsProducao.add( {
+          "folha": row.drywall,
+          "qtde": '',
+          "ft": '',
+          "status": ''
+        });*/
+
+      }
+    }
+    else{
+      rowsInsuladora = [];
+      for (var row in listaInsuladora) {
+        rowsInsuladora.add( {
+          "tipo": row.tipo,
+          "qtde": '',
+          "soft": ''
+        });
+      }
+    }
+
+    /*if(_profissionalModel.idTipoProfissional == 'P') {
+      setState(() {
+        listRowsProfissional = rowsProducao;
+      });
+
+    }
+    else {
+      setState(() {
+        listRowsProfissional = rowsInsuladora;
+      });
+    }*/
+  }
+
+  Future<void> getFullTableProdProfessional(String tbProd,String tipo) async{
+    var collection= FirebaseFirestore.instance.collection(tbProd);
+    try {
+      collection.snapshots().listen((querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          Map<String, dynamic> data = doc.data();
+
+          if (tipo == 'P') {
+            listaProducaoBD.add(
+                ProducaoModel.fromMap(data));
+
+          } else {
+            listaInsuladora.add(
+                InsuladoraModel.fromMap(data));
+          }
+        }
+      });
+    }catch(e){
+      print(e);
+    }
   }
 
   Future<void> getProfissionalTable() async{
@@ -112,9 +285,20 @@ class _HomePageState extends State<HomePage> {
       );
     }
     catch (e){
-      print("SELECT DO PROFISSONA");
-      print(e); print(_profissionalDB.nome);
+      /*print("SELECT DO PROFISSONA");
+      print(e);
+      print(_profissionalDB.nome);*/
+    }
 
+    try {
+      DocumentSnapshot snapshot =
+      await FirebaseFirestore.instance.collection(FirebaseConst.tipoTabelaProf)
+          .doc(_profissionalDB.tbProd)
+          .get();
+      tipoTabelaProfModelDB = TipoTabelaProfissionalModel.fromMap(snapshot.data() as Map, snapshot.reference.id);
+    }
+    catch(e) {
+       print(e);
     }
 
   }
@@ -122,20 +306,21 @@ class _HomePageState extends State<HomePage> {
   Future<void> getTransactions() async{
     //RECUPERA TODAS AS ATIVIDADES DO PROFISSIONAL
    int cont = 0;
+   TipoTabelaProfissionalModel tipoTabelaModel = TipoTabelaProfissionalModel();
     try {
       await FirebaseFirestore.instance.collection('atividade')
-          .where(
-          "profissional", isEqualTo: emailController.text)
+          .where("profissional", isEqualTo: emailController.text)
+          .where("status", isEqualTo: 'A')
           .orderBy("dtModificacao",descending: true)
           .get()
           .then((querySnapshot) {
         for (var docSnapshot in querySnapshot.docs) {
 
             Map<String, dynamic> response = docSnapshot.data();
-            if(listaAtividades.length <= 3) {
+            //if(listaAtividades.length <= 3) {
               listaAtividades.add(
                   AtividadeModel.fromMap(response, docSnapshot.reference.id));
-            }
+            //}
           }
       });
     }
@@ -146,7 +331,9 @@ class _HomePageState extends State<HomePage> {
     try {
       for (var atividade in listaAtividades)
       {
-        if(atividade.tabela.length == 1){
+        tipoTabelaModel = await getProfissionalData(atividade.tabela);
+
+        if(tipoTabelaModel.tipo == 'P'){
 
           await FirebaseFirestore.instance.collection(FirebaseConst.atividadeProducao).where("idAtividade", isEqualTo:atividade.id ).get().then(
                   (querySnapshot)
@@ -159,8 +346,9 @@ class _HomePageState extends State<HomePage> {
                     CardTransaction card = CardTransaction();
                     card.name = atividade.nomeObra;
                     card.date = atividade.data;
-                    card.price = producaoModel.totalProfissional.toString();
-                    card.type = int.parse(atividade.tabela);
+                    card.price = producaoModel.totalProfissional.toStringAsFixed(2);
+                    card.type = tipoTabelaModel.tipo == 'P' ? 1 : 2;
+
                     if (producaoModel.totalProfissional > 0 && listaTransacoesSelect.length <= 2) {
                       listaTransacoesSelect.add(card);
                     }
@@ -201,6 +389,26 @@ class _HomePageState extends State<HomePage> {
     catch (e){
       print(e);
     }
+  }
+
+  Future<TipoTabelaProfissionalModel> getProfissionalData(String idTabela) async {
+    //RECUPERA DADOS DO PROFISSIONAL
+    try {
+      await FirebaseFirestore.instance.collection(FirebaseConst.tipoTabelaProf)
+          .where("idtTabela", isEqualTo: idTabela)
+          .get()
+          .then((querySnapshot) {
+        for (var docSnapshot in querySnapshot.docs) {
+          Map<String, dynamic> response = docSnapshot.data();
+
+          _tipoTabelaProfissionalModelModel = TipoTabelaProfissionalModel.fromMap(response, docSnapshot.reference.id);
+        }
+      });
+    }
+    catch (e) {
+      print(e);
+    }
+    return _tipoTabelaProfissionalModelModel;
   }
 
   Future<void> getEquipments() async{
@@ -479,9 +687,12 @@ class _HomePageState extends State<HomePage> {
         Expanded(
           child: ServiceBox.revenue(
             onPressed: () => Modular.to.pushNamed('/activity/create', arguments: ProfissionalModel(
-                tbProd: _profissionalModel.tbProd,
+                tbProd: _tipoTabelaProfModel.idtTabela,
                 nome: _profissionalModel.nome,
                 flgAdm: _profissionalModel.flgAdm,
+                idTipoProfissional: _tipoTabelaProfModel.tipo,
+                listaTBProd: _profissionalModel.listaTBProd,
+                id:_profissionalModel.tbProd
                 )),
             bgColor: AppColor.yellow,
           ),

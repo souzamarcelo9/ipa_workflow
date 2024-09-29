@@ -15,6 +15,7 @@ class AtividadeModel {
   String usuario;
   List<ProducaoModel> tbProducao;
   List<InsuladoraModel> tbInsuladora;
+  String status;
 
   AtividadeModel({
     this.id = '',
@@ -29,7 +30,7 @@ class AtividadeModel {
     this.dtModificacao,
     this.tbProducao = const[],
     this.tbInsuladora = const[],
-
+    this.status = ''
   });
 
   Map<String, dynamic> toMap() {
@@ -46,6 +47,7 @@ class AtividadeModel {
       "dtModificacao":dtModificacao,
       "tbProducao": tbProducao,
       "tbInsuladora": tbInsuladora,
+      "status": status,
     };
     return map;
   }
@@ -64,6 +66,7 @@ class AtividadeModel {
       dtModificacao: dados?['dtModificacao'] ?? null,
       tbProducao: dados?['tbProducao'] ?? [],
       tbInsuladora: dados?['tbInsuladora'] ?? [],
+      status: dados?['status'] ?? [],
     );
   }
   factory AtividadeModel.create(
@@ -75,6 +78,7 @@ class AtividadeModel {
         required int unidade,
         required String usuario,
         required Timestamp dtModificacao,
+        required String status,
         required String altura}) {
     return AtividadeModel(
       obra: obra,
@@ -85,7 +89,8 @@ class AtividadeModel {
       unidade: unidade,
       altura: altura,
       usuario:usuario,
-      dtModificacao: dtModificacao
+      dtModificacao: dtModificacao,
+      status:status
     );
   }
   Map<String, dynamic> toFirestore() {
@@ -99,7 +104,8 @@ class AtividadeModel {
       "unidade": unidade,
       "altura": altura,
       "usuario":usuario,
-      "dtModificacao":dtModificacao
+      "dtModificacao":dtModificacao,
+      "status":status,
     };
   }
   factory AtividadeModel.fromJson(Map<String, dynamic> json) {
@@ -113,7 +119,8 @@ class AtividadeModel {
       unidade: json['unidade'],
       altura: json['altura'],
       usuario:json['usuario'],
-      dtModificacao: json['dtModificacao']
+      dtModificacao: json['dtModificacao'],
+      status: json['status'],
     );
   }
   factory AtividadeModel.fromFirestore(
@@ -132,6 +139,7 @@ class AtividadeModel {
       altura: data['altura'],
       usuario: data['usuario'],
       dtModificacao: data['dtModificacao'],
+      status: data['status'],
     );
   }
 

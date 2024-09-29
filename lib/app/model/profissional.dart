@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:viska_erp_mobile/app/model/tbProducao.dart';
 
 class ProfissionalModel {
   String id;
@@ -20,8 +21,8 @@ class ProfissionalModel {
   String tmpAlmoco;
   String usuario;
   num vlrHora;
-  int idTipoProfissional;
-
+  String idTipoProfissional;
+  List<ProducaoModel> listaTBProd  ;
 
   ProfissionalModel({
     this.id = '',
@@ -43,7 +44,8 @@ class ProfissionalModel {
     this.tmpAlmoco = '',
     this.usuario = '',
     this.vlrHora = 0.0,
-    this.idTipoProfissional = 0
+    this.idTipoProfissional = '',
+    this.listaTBProd = const []
   });
 
   Map<String, dynamic> toMap() {
@@ -93,7 +95,7 @@ class ProfissionalModel {
       tmpAlmoco: dados?['tmpAlmoco'] ?? '',
       usuario: dados?['usuario'] ?? '',
       vlrHora: dados?['vlrHora'] ?? 0.0,
-      idTipoProfissional: dados?['idTipoProfissional'] ?? 0,
+      idTipoProfissional: dados?['idTipoProfissional'] ?? '',
     );
   }
 
