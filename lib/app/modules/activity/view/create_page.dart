@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:viska_erp_mobile/app/model/AtividadeInsuladora.dart';
 import 'package:viska_erp_mobile/app/model/AtividadeProducao.dart';
-+import 'package:viska_erp_mobile/app/model/accountSeg.dart';
+import 'package:viska_erp_mobile/app/model/accountSeg.dart';
 import 'package:viska_erp_mobile/app/model/atividade.dart';
 import 'package:viska_erp_mobile/app/model/formam.dart';
 import 'package:viska_erp_mobile/app/model/profissional.dart';
