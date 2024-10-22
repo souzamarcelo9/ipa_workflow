@@ -372,7 +372,7 @@ class _HomePageState extends State<HomePage> {
                     card.name = atividade.nomeObra;
                     card.date = atividade.data;
                     card.price = insuladoraModel.totalProfissional.toString();
-                    card.type = int.parse(atividade.tabela);
+                    card.type = tipoTabelaModel.tipo == 'P' ? 1 : 2;
 
                     if (insuladoraModel.totalProfissional > 0 && listaTransacoesSelect.length <= 2) {
                       listaTransacoesSelect.add(card);

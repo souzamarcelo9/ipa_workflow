@@ -50,7 +50,7 @@ class _MapActivityPageState extends State<MapActivityPage> {
   late List<CardTabela> lstCards = [];
   late List<CardTabela> lstCardsInit = [];
   late GoogleMapController mapController;
-  LatLng ?_currentPosition;
+  late LatLng _currentPosition;
   var selectedObra, selectedType,selectedTabela;
   bool _isLoading = true;
   late DateTime _chosenDateTime;
@@ -60,7 +60,7 @@ class _MapActivityPageState extends State<MapActivityPage> {
   late double longObra;
   final _statesEntrar = WidgetStatesController();
   final _statesEncerrar = WidgetStatesController();
-  bool btnVisible = false;
+  bool mapVisible = false;
   bool isDisabled = false;
   final _auth = FirebaseAuth.instance;
 
@@ -87,7 +87,7 @@ class _MapActivityPageState extends State<MapActivityPage> {
     });
   }
 
-  getLocation() async {
+  Future<LatLng> getLocation()  async {
     LocationPermission permission;
     permission = await Geolocator.requestPermission();
 
@@ -104,6 +104,8 @@ class _MapActivityPageState extends State<MapActivityPage> {
       longitude = long;
       _isLoading = false;
     });
+
+    return location;
   }
 
   void _onCameraMove(CameraPosition position) {
@@ -127,6 +129,11 @@ class _MapActivityPageState extends State<MapActivityPage> {
       telController.text = controller.userModel.phone;
     });
 
+    await getLocation();
+
+    setState(() {
+      _isLoading = false;
+    });
     /*_statesEntrar.update(
       WidgetState.disabled,
       false, // or false depending on your logic
@@ -358,48 +365,67 @@ class _MapActivityPageState extends State<MapActivityPage> {
           title: const Center(child:Text('Registrar Trabalho')),
           backgroundColor: Colors.green[700],
         ),
-        body: Stack(
-          children: <Widget>[
-            GoogleMap(
-              onMapCreated: _onMapCreated,
-              initialCameraPosition: CameraPosition(
-                target: _currentPosition!,//_center,
-                zoom: 11.0,
-              ),
-              mapType: _currentMapType,
-              markers: _markers,
-              onCameraMove: _onCameraMove,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Column(
-                  children: <Widget> [
-                    FloatingActionButton(
-                      onPressed: () => showBatidaDialog(context,'Atividade Hora'),//_onMapTypeButtonPressed,
-                      materialTapTargetSize: MaterialTapTargetSize.padded,
-                      backgroundColor: Colors.green,
-                      child: const Icon(Icons.access_time_filled_sharp, size: 36.0),
-                      heroTag: "btn1",
-                    ),
-                    SizedBox(height: 16.0),
-                    FloatingActionButton(
-                      onPressed: _onAddMarkerButtonPressed,
-                      materialTapTargetSize: MaterialTapTargetSize.padded,
-                      backgroundColor: Colors.green,
-                      child: const Icon(Icons.add_location, size: 36.0),
-                      heroTag: "btn2",
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+        body:buildContainer()
       ),
     );
   }
+
+  buildContainer() {
+    return Container(
+        child: FutureBuilder(
+            future: getLocation(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Stack(
+                  children: <Widget>[
+                    GoogleMap(
+                      onMapCreated: _onMapCreated,
+                      initialCameraPosition: CameraPosition(
+                        target: snapshot.data!,//_center,
+                        zoom: 11.0,
+                      ),
+                      mapType: _currentMapType,
+                      markers: _markers,
+                      onCameraMove: _onCameraMove,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Column(
+                          children: <Widget> [
+                            FloatingActionButton(
+                              onPressed: () => showBatidaDialog(context,'Atividade Hora'),//_onMapTypeButtonPressed,
+                              materialTapTargetSize: MaterialTapTargetSize.padded,
+                              backgroundColor: Colors.green,
+                              child: const Icon(Icons.access_time_filled_sharp, size: 36.0),
+                              heroTag: "btn1",
+                            ),
+                            SizedBox(height: 16.0),
+                            FloatingActionButton(
+                              onPressed: _onAddMarkerButtonPressed,
+                              materialTapTargetSize: MaterialTapTargetSize.padded,
+                              backgroundColor: Colors.green,
+                              child: const Icon(Icons.add_location, size: 36.0),
+                              heroTag: "btn2",
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }
+              else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }));
+  }
+
+
+
 
   Future<bool> checkUserIsWorking() async {
     var db = FirebaseFirestore.instance;
@@ -437,14 +463,15 @@ class _MapActivityPageState extends State<MapActivityPage> {
     var isWorking = await checkUserIsWorking();
     var pergunta = isWorking ? 'Confirma saída em: ' : 'Confirma batida em';
 
-    Widget cancelButton = ElevatedButton(
+    /*Widget cancelButton = ElevatedButton(
       child: Text("Cancelar"),
       onPressed: () {
         // returnValue = false;
-        Navigator.of(context).pop(false);
+        Navigator.pop(context,false);
+            //Modular.to.pushNamed('/activity/map');
       },
-    );
-    Widget continueButton = ElevatedButton(
+    );*/
+   /* Widget continueButton = ElevatedButton(
       child: Text("Confirmar"),
       onPressed: () async {
 
@@ -464,98 +491,122 @@ class _MapActivityPageState extends State<MapActivityPage> {
         }
       },
     ); // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("$pergunta ${DateFormat("dd.MM.yyyy").format(DateTime.now())} às ${DateTime.now().hour}:${DateTime.now().minute}?"),
-      content:SizedBox(width: 100,
-        child:
-        StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance
-              .collection("obras")
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Center(
-                child: Text("Ocorreu um erro :${snapshot.error}"),
-              );
-            }
-            List<DropdownMenuItem> programItems = [];
-            if (!snapshot.hasData) {
-              return const CircularProgressIndicator();
-            } else {
-              final selectProgram = snapshot.data?.docs.reversed.toList();
-              if (selectProgram != null) {
-                for (var program in selectProgram) {
-                  programItems.add(
-                    DropdownMenuItem<String>(
-                      value: program.id,
-                      child: Text(
-                        program['nome'],
-                      ),
-                    ),
-                  );
-                }
-              }
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                      child: SizedBox(height: 40.0,
-                        //Icon(FontAwesomeIcons.warehouse,
-                        // size: 25.0, color: Color(0xff11b719)),
-                        //SizedBox(width: 50.0),
-                        child: DropdownButtonFormField(
-                          //autovalidateMode: AutovalidateMode.always,
-                          items: programItems,
-                          onChanged: (obra) {
-                            const snackBar = SnackBar(
-                              content: Text(
-                                'Obra selecionada.',
-                                style: TextStyle(color: Color(0xff11b719)),
-                              ),
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            setState(() {
-                              selectedObra = obra;
-                            });
-                          },
-                          //validator: validateFields(selectedObra),
-                          decoration: const InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color:
-                              Colors.greenAccent),),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color:
-                              Colors.green),),
-                          ),
-                          elevation: 2,
-                          style: const TextStyle(color: Colors.black,
-                              fontSize: 16),
-                          isDense: true,
-                          iconSize: 30.0,
-                          iconEnabledColor: Colors.black,
-                          value: selectedObra,
-                          isExpanded: false,
-                          hint: const Text(
-                            "Selecione a obra:",
-                            style: TextStyle(color: Color(0xff11b719)),
-                          ),
-
-                        ),
-                      ))
-                ],
-              );
-            }
-          })),                     //Text(message),
-      actions: [
-        cancelButton,
-        continueButton,
-      ],
-    ); // show the dialog
+*/
 
     final result = await showDialog<bool?>(
       context: context,
       builder: (BuildContext context) {
-        return alert;
+        return AlertDialog(
+          title: Text("$pergunta ${DateFormat("dd.MM.yyyy").format(DateTime.now())} às ${DateTime.now().hour}:${DateTime.now().minute}?"),
+          content:SizedBox(width: 100,
+              child:
+              StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("obras")
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text("Ocorreu um erro :${snapshot.error}"),
+                      );
+                    }
+                    List<DropdownMenuItem> programItems = [];
+                    if (!snapshot.hasData) {
+                      return const CircularProgressIndicator();
+                    } else {
+                      final selectProgram = snapshot.data?.docs.reversed.toList();
+                      if (selectProgram != null) {
+                        for (var program in selectProgram) {
+                          programItems.add(
+                            DropdownMenuItem<String>(
+                              value: program.id,
+                              child: Text(
+                                program['nome'],
+                              ),
+                            ),
+                          );
+                        }
+                      }
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                              child: SizedBox(height: 40.0,
+                                //Icon(FontAwesomeIcons.warehouse,
+                                // size: 25.0, color: Color(0xff11b719)),
+                                //SizedBox(width: 50.0),
+                                child: DropdownButtonFormField(
+                                  //autovalidateMode: AutovalidateMode.always,
+                                  items: programItems,
+                                  onChanged: (obra) {
+                                    const snackBar = SnackBar(
+                                      content: Text(
+                                        'Obra selecionada.',
+                                        style: TextStyle(color: Color(0xff11b719)),
+                                      ),
+                                    );
+                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                    setState(() {
+                                      selectedObra = obra;
+                                    });
+                                  },
+                                  //validator: validateFields(selectedObra),
+                                  decoration: const InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color:
+                                      Colors.greenAccent),),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color:
+                                      Colors.green),),
+                                  ),
+                                  elevation: 2,
+                                  style: const TextStyle(color: Colors.black,
+                                      fontSize: 16),
+                                  isDense: true,
+                                  iconSize: 30.0,
+                                  iconEnabledColor: Colors.black,
+                                  value: selectedObra,
+                                  isExpanded: false,
+                                  hint: const Text(
+                                    "Selecione a obra:",
+                                    style: TextStyle(color: Color(0xff11b719)),
+                                  ),
+
+                                ),
+                              ))
+                        ],
+                      );
+                    }
+                  })),                     //Text(message),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text("Cancelar"),
+              onPressed: () {
+              Navigator.pop(context,false);
+          }),
+
+            ElevatedButton(
+              child: Text("Confirmar"),
+              onPressed: () async {
+
+                if(validateFields(''))
+                {
+                await validaGeolocalizacao(isWorking);
+                }
+                else
+                {
+                  const snackBar = SnackBar(
+                  content: Text(
+                  'Por favor selecione a obra.',
+                  style: TextStyle(color: Color(0xff11b719)),
+                  ),
+                );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            },
+            ) // set up the AlertDia
+          ]
+        ); // show the dialog
       },
     );
     return result ?? false;

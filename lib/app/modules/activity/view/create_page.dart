@@ -6,7 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:viska_erp_mobile/app/model/AtividadeInsuladora.dart';
 import 'package:viska_erp_mobile/app/model/AtividadeProducao.dart';
++import 'package:viska_erp_mobile/app/model/accountSeg.dart';
 import 'package:viska_erp_mobile/app/model/atividade.dart';
+import 'package:viska_erp_mobile/app/model/formam.dart';
 import 'package:viska_erp_mobile/app/model/profissional.dart';
 //import 'package:simple_flutter_firebase_crud/constants/collection.dart';
 import 'package:viska_erp_mobile/app/model/user.dart';
@@ -40,6 +42,8 @@ class _CreatePageState extends State<CreatePage> {
   AtividadeModel _atividadeModel = AtividadeModel();
   late ProfissionalModel profissionalDB = ProfissionalModel();
   late ProfissionalModel profissional = ProfissionalModel();
+  late FormamModel _formamModel = FormamModel();
+  late FormamModel _formamDB = FormamModel();
   late List<ProducaoModel> listaProducao = [];
   late List<InsuladoraModel> listaInsuladora = [];
   final HomeStore controller = Modular.get();
@@ -237,6 +241,35 @@ class _CreatePageState extends State<CreatePage> {
 
     //await fillExcelTituloColuna();
 
+    await getFormamByEmail();
+
+    setState(() {
+      _formamModel = _formamDB;
+    });
+
+  }
+  Future<void> getFormamByEmail() async{
+    try{
+      await FirebaseFirestore.instance.collection("formam")
+          .where("email", isEqualTo: emailController.text)
+          .get()
+          .then(
+            (querySnapshot) {
+
+          for (var docSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> response = docSnapshot.data();
+            _formamDB = FormamModel.fromMap(response,docSnapshot.reference.id);
+          }
+
+        },
+        onError: (e) => print("Error completing: $e"),
+      );
+    }
+    catch (e){
+
+      print(e);
+
+    }
   }
 
   Future<void> fillExcelTituloColuna() async{
@@ -348,6 +381,7 @@ class _CreatePageState extends State<CreatePage> {
                StreamBuilder<QuerySnapshot>(
                    stream: FirebaseFirestore.instance
                        .collection("obras")
+                       .where("formam", isEqualTo: _formamModel.id)
                        .snapshots(),
                    builder: (context, snapshot) {
                      if (snapshot.hasError) {
@@ -778,8 +812,136 @@ class _CreatePageState extends State<CreatePage> {
     return docRef;
   }
 
+  Future<num> _getLastAccNumber(String type) async {
+    final db = FirebaseFirestore.instance;
+    AccountSegModel docContabil =  AccountSegModel();
+
+    await db.collection(FirebaseConst.documentoContabil)
+        .where("tpDoc", isEqualTo: type)
+        .orderBy('doc_number', descending: true)
+        .limit(1)
+        .get()
+        .then((querySnapshot) {
+      for (var docSnapshot in querySnapshot.docs) {
+        Map<String, dynamic> response = docSnapshot.data();
+        docContabil = AccountSegModel.fromMap(response, docSnapshot.reference.id);
+      }
+    });
+
+    return docContabil.docNumber;
+  }
+
+
+  Future<void> _createAccDocFromProd(AtividadeProducaoModel atividade,DocumentReference docRef) async {
+    final db = FirebaseFirestore.instance;
+    AccountSegModel bsegModel = AccountSegModel();
+    bsegModel.docNumber = await _getLastAccNumber('KR');
+    bsegModel.docNumber +=1;
+    bsegModel.data = DateFormat("dd.MM.yyyy").format(DateTime.now());
+    bsegModel.profissional = atividade.nomeProfissional;
+    bsegModel.refkey = docRef.id;
+    bsegModel.status = "A";
+    bsegModel.tpDoc = "KR";
+    bsegModel.urlImagem = controller.userModel.userImage;
+    bsegModel.wrbtr = atividade.totalProfissional;
+
+    try {
+       await db
+          .collection(FirebaseConst.documentoContabil)
+          .withConverter(
+        fromFirestore: AccountSegModel.fromFirestore,
+        toFirestore: (value, options) {
+          return bsegModel.toFirestore();
+        },
+      )
+          .add(bsegModel);
+    }
+    catch (e)
+    {
+      print(e.toString());
+      throw Exception(e.toString());
+    }
+
+    bsegModel.docNumber = await _getLastAccNumber("DZ");
+    bsegModel.docNumber +=1;
+    bsegModel.tpDoc = "DZ";
+    bsegModel.wrbtr = atividade.totalEmpresa;
+
+    try {
+      await db
+          .collection(FirebaseConst.documentoContabil)
+          .withConverter(
+        fromFirestore: AccountSegModel.fromFirestore,
+        toFirestore: (value, options) {
+          return bsegModel.toFirestore();
+        },
+      )
+          .add(bsegModel);
+    }
+    catch (e)
+    {
+      print(e.toString());
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> _createAccDocFromInsul(AtividadeInsuladoraModel atividade,DocumentReference docRef) async {
+
+    final db = FirebaseFirestore.instance;
+    AccountSegModel bsegModel = AccountSegModel();
+    bsegModel.docNumber = await _getLastAccNumber('KR');
+    bsegModel.docNumber +=1;
+    bsegModel.data = DateFormat("dd.MM.yyyy").format(DateTime.now());
+    bsegModel.profissional = atividade.nomeProfissional;
+    bsegModel.refkey = docRef.id;
+    bsegModel.status = "A";
+    bsegModel.tpDoc = "KR";
+    bsegModel.urlImagem = controller.userModel.userImage;
+    bsegModel.wrbtr = atividade.totalProfissional;
+
+    try {
+      await db
+          .collection(FirebaseConst.documentoContabil)
+          .withConverter(
+        fromFirestore: AccountSegModel.fromFirestore,
+        toFirestore: (value, options) {
+          return bsegModel.toFirestore();
+        },
+      )
+          .add(bsegModel);
+    }
+    catch (e)
+    {
+      print(e.toString());
+      throw Exception(e.toString());
+    }
+
+    bsegModel.docNumber = await _getLastAccNumber("DZ");
+    bsegModel.docNumber +=1;
+    bsegModel.tpDoc = "DZ";
+    bsegModel.wrbtr = atividade.totalEmpresa;
+
+    try {
+      await db
+          .collection(FirebaseConst.documentoContabil)
+          .withConverter(
+        fromFirestore: AccountSegModel.fromFirestore,
+        toFirestore: (value, options) {
+          return bsegModel.toFirestore();
+        },
+      )
+          .add(bsegModel);
+    }
+    catch (e)
+    {
+      print(e.toString());
+      throw Exception(e.toString());
+    }
+  }
+
   Future<void> _createWorkTables(String idAtividade,String tipoTabela) async {
     final db = FirebaseFirestore.instance;
+    DocumentReference docRef;
     // await db.collection(Collection.users).add(user.toJson());
     String tbProd;
     List<ProducaoModel> tbProducao = [];
@@ -810,7 +972,7 @@ class _CreatePageState extends State<CreatePage> {
         atividadeProd.idAtividade = idAtividade;
         atividadeProd.totalProfissional = 0;
         atividadeProd.totalEmpresa = 0;
-        atividadeProd.drywall = getRowTypeProd(i);
+        atividadeProd.drywall = getRowTypeProd(editedRows[i]['row']);
 
         await db.collection(tbProd).where("drywall", isEqualTo: atividadeProd.drywall).get().then(
               (querySnapshot) {
@@ -843,7 +1005,7 @@ class _CreatePageState extends State<CreatePage> {
         atividadeProd.nomeProfissional = controller.userModel.name;
 
         try {
-          await db
+          docRef = await db
               .collection("tbAtividadeProducao")
               .withConverter(
             fromFirestore: AtividadeProducaoModel.fromFirestore,
@@ -851,13 +1013,17 @@ class _CreatePageState extends State<CreatePage> {
               return atividadeProd.toFirestore();
             },
           )
-          //.doc()
+           //.doc()
               .add(atividadeProd);
         }
         catch (e) {
           print(e.toString());
           throw Exception(e.toString());
         }
+
+        //Salva os documentos contábeis
+         await _createAccDocFromProd(atividadeProd,docRef);
+
         //}
       }
       else {
@@ -866,7 +1032,7 @@ class _CreatePageState extends State<CreatePage> {
         AtividadeInsuladoraModel atividadeInsul = AtividadeInsuladoraModel();
         atividadeInsul.idAtividade = idAtividade;
         atividadeInsul.quantidade = 0;
-        atividadeInsul.tipoBag = getRowTypeInsul(i.toString());
+        atividadeInsul.tipoBag = getRowTypeInsul(editedRows[i]['row'].toString());
 
         await db.collection(tbProd).where("tipo", isEqualTo: atividadeInsul.tipoBag).get().then(
               (querySnapshot) {
@@ -899,7 +1065,7 @@ class _CreatePageState extends State<CreatePage> {
         atividadeInsul.nomeProfissional = controller.userModel.name;
 
           try {
-            await db
+           docRef =  await db
                 .collection("tbAtividadeInsuladora")
                 .withConverter(
               fromFirestore: AtividadeInsuladoraModel.fromFirestore,
@@ -914,6 +1080,9 @@ class _CreatePageState extends State<CreatePage> {
             print(e.toString());
             throw Exception(e.toString());
           }
+          //salva o documento na contabilidade
+
+         await _createAccDocFromInsul(atividadeInsul,docRef);
         //}
       }
     }
@@ -928,7 +1097,7 @@ class _CreatePageState extends State<CreatePage> {
     return null;
   }
 
-  String getRowTypeProd(int row){
+  String getRowTypeProd( int row){
 
     return profissional.listaTBProd[row].drywall;
     /*switch (row) {
