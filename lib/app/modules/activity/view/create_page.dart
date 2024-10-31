@@ -838,6 +838,8 @@ class _CreatePageState extends State<CreatePage> {
     bsegModel.docNumber = await _getLastAccNumber('KR');
     bsegModel.docNumber +=1;
     bsegModel.data = DateFormat("dd.MM.yyyy").format(DateTime.now());
+    bsegModel.mes = DateTime.now().month;
+    bsegModel.ano = DateTime.now().year;
     bsegModel.profissional = atividade.nomeProfissional;
     bsegModel.refkey = docRef.id;
     bsegModel.status = "A";
@@ -892,6 +894,8 @@ class _CreatePageState extends State<CreatePage> {
     bsegModel.docNumber = await _getLastAccNumber('KR');
     bsegModel.docNumber +=1;
     bsegModel.data = DateFormat("dd.MM.yyyy").format(DateTime.now());
+    bsegModel.mes = DateTime.now().month;
+    bsegModel.ano = DateTime.now().year;
     bsegModel.profissional = atividade.nomeProfissional;
     bsegModel.refkey = docRef.id;
     bsegModel.status = "A";
