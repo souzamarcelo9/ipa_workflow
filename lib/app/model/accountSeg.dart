@@ -12,6 +12,8 @@ class AccountSegModel {
   String tpDoc;
   num wrbtr;
   String status;
+  int ano;
+  int mes;
 
   AccountSegModel({
     this.id = '',
@@ -22,7 +24,9 @@ class AccountSegModel {
     this.tpDoc = '',
     this.urlImagem = '',
     this.wrbtr = 0,
-    this.status = ''
+    this.status = '',
+    this.ano = 0,
+    this.mes = 0
   });
 
   Map<String, dynamic> toMap() {
@@ -36,6 +40,8 @@ class AccountSegModel {
       "urlImagem": urlImagem,
       "wrbtr":wrbtr,
       "status": status,
+      "ano": ano,
+      "mes": mes,
     };
     return map;
   }
@@ -51,6 +57,8 @@ class AccountSegModel {
       urlImagem: dados?['urlImagem'] ?? '',
       wrbtr: dados?['wrbtr'] ?? 0,
       status: dados?['status'] ?? [],
+      mes: dados?['mes'] ?? 0,
+      ano: dados?['ano'] ?? 0
     );
   }
   factory AccountSegModel.create(
@@ -62,7 +70,10 @@ class AccountSegModel {
         required String tpDoc,
         required String urlImagem,
         required num wrbtr ,
-        required String status}) {
+        required String status,
+        required int ano,
+        required int mes
+      }) {
     return AccountSegModel(
         profissional: profissional,
         data: data,
@@ -72,6 +83,8 @@ class AccountSegModel {
         urlImagem: urlImagem,
         wrbtr: wrbtr,
         status:status,
+        ano: ano,
+        mes: mes,
     );
   }
   Map<String, dynamic> toFirestore() {
@@ -85,6 +98,8 @@ class AccountSegModel {
       "urlImagem": urlImagem,
       "wrbtr":wrbtr,
       "status":status,
+      "ano":ano,
+      "mes":mes,
     };
   }
   factory AccountSegModel.fromJson(Map<String, dynamic> json) {
@@ -98,6 +113,8 @@ class AccountSegModel {
       urlImagem: json['urlImagem'],
       wrbtr: json['wrbtr'],
       status:json['status'],
+      ano: json['ano'],
+      mes: json['mes'],
     );
   }
   factory AccountSegModel.fromFirestore(
@@ -115,6 +132,8 @@ class AccountSegModel {
       urlImagem: data['urlImagem'],
       wrbtr: data['wrbtr'],
       status: data['status'],
+      ano: data['ano'],
+      mes: data['mes'],
     );
   }
 
