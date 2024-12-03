@@ -272,10 +272,15 @@ class _MapActivityPageState extends State<MapActivityPage> {
     //int hours = difference!.inHours % 24;
     //print("hora");
     double hours = (minutes / 60);
+    String inString = hours.toStringAsFixed(2); // '2.35'
+    double inDouble = double.parse(inString); // 2.35
 
     if(atividadeHora.valorHora > 0) {
-      atividadeHora.totalProfissional = (hours * atividadeHora.valorHora);
+      atividadeHora.totalProfissional = (inDouble * atividadeHora.valorHora);
     }
+
+    String totalString = atividadeHora.totalProfissional.toStringAsFixed(2);
+    double totalRetorno = double.parse(totalString); // 2.35
 
     try {
       //await _auth.currentUser?.updateEmail(model.email);
@@ -376,6 +381,7 @@ class _MapActivityPageState extends State<MapActivityPage> {
       longitude,
     );
 
+    distanceInMeters = 100;
     if(distanceInMeters > 1000){
       //localização inválida fora do local de trabalho
       localOk = false;
