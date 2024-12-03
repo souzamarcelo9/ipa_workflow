@@ -676,7 +676,9 @@ class _CreatePageState extends State<CreatePage> {
                                  usuario:emailController.text,
                                  dtModificacao: Timestamp.now(),
                                  altura: alturaController.text,
-                                 status: 'A'
+                                 status: 'A',
+                                 mes: DateTime.now().month,
+                                 ano:DateTime.now().year
                              );
                            });
                            _pressedCreate = true;

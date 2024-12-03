@@ -510,6 +510,7 @@ class _MaterialPageState extends State<MaterialPage> {
                         quantidade: quantidadeController.text,
                         unidade: unidadeController.text,
                         produto: selectedMaterial,
+                        status:'A',
                         obs:obsController.text);
                         }
                       );

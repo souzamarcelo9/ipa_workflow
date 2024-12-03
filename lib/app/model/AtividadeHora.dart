@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AtividadeHoraModel {
@@ -6,8 +8,8 @@ class AtividadeHoraModel {
   double valorHora;
   double totalProfissional;
   String dtAtividade;
-  DateTime dtHoraEntrada;
-  DateTime ?dtHoraSaida;
+  Timestamp dtHoraEntrada;
+  Timestamp ?dtHoraSaida;
   String profissional;
   String status;
   String idUsuario;
@@ -21,10 +23,10 @@ class AtividadeHoraModel {
     this.profissional = '',
     this.status = '',
     this.idUsuario = '',
-    DateTime? dtHoraEntrada,
-    DateTime? dtHoraSaida,
-  }) : dtHoraEntrada = dtHoraEntrada ?? DateTime.now(),
-        dtHoraSaida = dtHoraSaida ?? DateTime.now();
+    this.dtHoraSaida,
+    Timestamp? dtHoraEntrada
+  }): dtHoraEntrada = dtHoraEntrada ?? Timestamp.now();
+
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
@@ -52,7 +54,7 @@ class AtividadeHoraModel {
       profissional: dados?['profissional'] ?? '',
       status: dados?['status'] ?? '',
       dtHoraEntrada: dados?['dtHoraEntrada'] ?? '',
-      dtHoraSaida: dados?['dtHoraSaida'] ?? '',
+      dtHoraSaida: dados?['dtHoraSaida'],
       idUsuario: dados?['idUsuario'] ?? '',
     );
   }

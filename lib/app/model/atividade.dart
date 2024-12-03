@@ -16,6 +16,8 @@ class AtividadeModel {
   List<ProducaoModel> tbProducao;
   List<InsuladoraModel> tbInsuladora;
   String status;
+  int ano;
+  int mes;
 
   AtividadeModel({
     this.id = '',
@@ -30,7 +32,9 @@ class AtividadeModel {
     this.dtModificacao,
     this.tbProducao = const[],
     this.tbInsuladora = const[],
-    this.status = ''
+    this.status = '',
+    this.ano = 0,
+    this.mes = 0
   });
 
   Map<String, dynamic> toMap() {
@@ -48,6 +52,8 @@ class AtividadeModel {
       "tbProducao": tbProducao,
       "tbInsuladora": tbInsuladora,
       "status": status,
+      "ano": ano,
+      "mes": mes,
     };
     return map;
   }
@@ -67,6 +73,8 @@ class AtividadeModel {
       tbProducao: dados?['tbProducao'] ?? [],
       tbInsuladora: dados?['tbInsuladora'] ?? [],
       status: dados?['status'] ?? [],
+      ano: dados?['ano'] ?? 0,
+      mes: dados?['mes'] ?? 0,
     );
   }
   factory AtividadeModel.create(
@@ -79,7 +87,10 @@ class AtividadeModel {
         required String usuario,
         required Timestamp dtModificacao,
         required String status,
-        required String altura}) {
+        required String altura,
+        required int ano,
+        required int mes,
+      }) {
     return AtividadeModel(
       obra: obra,
         nomeObra: nomeObra,
@@ -90,7 +101,9 @@ class AtividadeModel {
       altura: altura,
       usuario:usuario,
       dtModificacao: dtModificacao,
-      status:status
+      status:status,
+      ano: ano,
+      mes: mes
     );
   }
   Map<String, dynamic> toFirestore() {
@@ -106,6 +119,8 @@ class AtividadeModel {
       "usuario":usuario,
       "dtModificacao":dtModificacao,
       "status":status,
+      "ano":ano,
+      "mes":mes,
     };
   }
   factory AtividadeModel.fromJson(Map<String, dynamic> json) {
@@ -121,6 +136,8 @@ class AtividadeModel {
       usuario:json['usuario'],
       dtModificacao: json['dtModificacao'],
       status: json['status'],
+      ano: json['ano'],
+      mes: json['mes'],
     );
   }
   factory AtividadeModel.fromFirestore(
@@ -140,6 +157,8 @@ class AtividadeModel {
       usuario: data['usuario'],
       dtModificacao: data['dtModificacao'],
       status: data['status'],
+      ano: data['ano'],
+      mes: data['mes']
     );
   }
 

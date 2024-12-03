@@ -173,7 +173,7 @@ class _TabelaHoraPageState extends State<TabelaHoraPage> {
     atividadeHora.valorHora = profDB.vlrHora.toDouble();
     atividadeHora.totalProfissional = 0;
     atividadeHora.dtAtividade = DateFormat("dd.MM.yyyy").format(DateTime.now());
-    atividadeHora.dtHoraEntrada = DateTime.now();
+    atividadeHora.dtHoraEntrada = Timestamp.now();
     atividadeHora.dtHoraSaida = null;
     atividadeHora.profissional = profDB.nome;
 
@@ -229,11 +229,16 @@ class _TabelaHoraPageState extends State<TabelaHoraPage> {
     if (atividadeHora.valorHora > 0) {
       atividadeHora.valorHora = profDB.vlrHora.toDouble();
     }
-    atividadeHora.dtHoraSaida = DateTime.now();
-    Duration? difference = atividadeHora.dtHoraSaida?.difference(atividadeHora.dtHoraEntrada);
-    int hours = difference!.inHours % 24;
-    print("hora");
-    print(hours);
+    atividadeHora.dtHoraSaida = Timestamp.now();
+    DateTime dateTime1 = DateTime.parse(atividadeHora.dtHoraSaida!.toDate().toString());
+    DateTime dateTime2 = DateTime.parse(atividadeHora.dtHoraEntrada.toDate().toString());
+    //Duration? difference = atividadeHora.dtHoraSaida?.difference(atividadeHora.dtHoraEntrada);
+    //int hours = difference!.inHours % 24;
+    //print("hora");
+    //print(hours);
+
+    int hours = dateTime2.difference(dateTime1).inHours;
+
     if(atividadeHora.valorHora > 0) {
       atividadeHora.totalProfissional = (hours * atividadeHora.valorHora);
     }
@@ -256,7 +261,7 @@ class _TabelaHoraPageState extends State<TabelaHoraPage> {
       atualizou =  false;
     }
 
-    showFinalMessage(atividadeHora.dtHoraSaida!.toLocal().toString());
+    showFinalMessage(DateTime.parse(atividadeHora.dtHoraSaida!.toDate().toString()).toLocal().toString());
     return atualizou;
   }
 

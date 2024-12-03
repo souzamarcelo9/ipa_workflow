@@ -16,7 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../../../flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/firebase_const.dart';
+import '../../../model/accountSeg.dart';
 import '../../../model/card_tabela.dart';
+import '../../../model/formam.dart';
 import '../../../model/obra.dart';
 import '../../../model/profissional.dart';
 import '../../../widgets/alert.dart';
@@ -58,6 +60,8 @@ class _MapActivityPageState extends State<MapActivityPage> {
   late double longitude;
   late double latObra;
   late double longObra;
+  late FormamModel _formamModel = FormamModel();
+  late FormamModel _formamDB = FormamModel();
   final _statesEntrar = WidgetStatesController();
   final _statesEncerrar = WidgetStatesController();
   bool mapVisible = false;
@@ -142,6 +146,12 @@ class _MapActivityPageState extends State<MapActivityPage> {
       WidgetState.disabled,
       true, // or false depending on your logic
     );*/
+
+    await getFormamByEmail();
+
+    setState(() {
+      _formamModel = _formamDB;
+    });
   }
 
   Future<void> getLatLngFromAddress(String address) async {
@@ -195,7 +205,7 @@ class _MapActivityPageState extends State<MapActivityPage> {
     atividadeHora.valorHora = profDB.vlrHora.toDouble();
     atividadeHora.totalProfissional = 0;
     atividadeHora.dtAtividade = DateFormat("dd.MM.yyyy").format(DateTime.now());
-    atividadeHora.dtHoraEntrada = DateTime.now();
+    atividadeHora.dtHoraEntrada = Timestamp.now();
     atividadeHora.dtHoraSaida = null;
     atividadeHora.profissional = profDB.nome;
     atividadeHora.idUsuario = _auth.currentUser!.uid;
@@ -249,14 +259,20 @@ class _MapActivityPageState extends State<MapActivityPage> {
     }
 
     atividadeHora.status = 'C';
-    if (atividadeHora.valorHora > 0) {
-      atividadeHora.valorHora = profDB.vlrHora.toDouble();
-    }
-    atividadeHora.dtHoraSaida = DateTime.now();
-    Duration? difference = atividadeHora.dtHoraSaida?.difference(atividadeHora.dtHoraEntrada);
-    int hours = difference!.inHours % 24;
-    print("hora");
-    print(hours);
+   // if (atividadeHora.valorHora > 0) {
+     // atividadeHora.valorHora = profDB.vlrHora.toDouble();
+   // }
+    atividadeHora.dtHoraSaida = Timestamp.now();
+
+    DateTime dateTime1 = DateTime.parse(atividadeHora.dtHoraSaida!.toDate().toString());
+    DateTime dateTime2 = DateTime.parse(atividadeHora.dtHoraEntrada.toDate().toString());
+    //Duration? difference = atividadeHora.dtHoraSaida?.difference(atividadeHora.dtHoraEntrada);
+
+    int minutes = dateTime1.difference(dateTime2).inMinutes;
+    //int hours = difference!.inHours % 24;
+    //print("hora");
+    double hours = (minutes / 60);
+
     if(atividadeHora.valorHora > 0) {
       atividadeHora.totalProfissional = (hours * atividadeHora.valorHora);
     }
@@ -279,8 +295,60 @@ class _MapActivityPageState extends State<MapActivityPage> {
       atualizou =  false;
     }
 
-    showFinalMessage(atividadeHora.dtHoraSaida!.toLocal().toString());
+    await _createAccDocFromProd(atividadeHora,idAtividade);
+    showFinalMessage(DateTime.parse(atividadeHora.dtHoraSaida!.toDate().toString()).toLocal().toString());
     return atualizou;
+  }
+
+  Future<num> _getLastAccNumber(String type) async {
+    final db = FirebaseFirestore.instance;
+    AccountSegModel docContabil =  AccountSegModel();
+
+    await db.collection(FirebaseConst.documentoContabil)
+        .where("tpDoc", isEqualTo: type)
+        .orderBy('doc_number', descending: true)
+        .limit(1)
+        .get()
+        .then((querySnapshot) {
+      for (var docSnapshot in querySnapshot.docs) {
+        Map<String, dynamic> response = docSnapshot.data();
+        docContabil = AccountSegModel.fromMap(response, docSnapshot.reference.id);
+      }
+    });
+
+    return docContabil.docNumber;
+  }
+
+  Future<void> _createAccDocFromProd(AtividadeHoraModel atividade,String idAtividade) async {
+    final db = FirebaseFirestore.instance;
+    AccountSegModel bsegModel = AccountSegModel();
+    bsegModel.docNumber = await _getLastAccNumber('KR');
+    bsegModel.docNumber += 1;
+    bsegModel.data = DateFormat("dd.MM.yyyy").format(DateTime.now());
+    bsegModel.mes = DateTime.now().month;
+    bsegModel.ano = DateTime.now().year;
+    bsegModel.profissional = controller.userModel.name;
+    bsegModel.refkey = idAtividade;
+    bsegModel.status = "A";
+    bsegModel.tpDoc = "KR";
+    bsegModel.urlImagem = controller.userModel.userImage;
+    bsegModel.wrbtr = atividade.totalProfissional;
+
+    try {
+      await db
+          .collection(FirebaseConst.documentoContabil)
+          .withConverter(
+        fromFirestore: AccountSegModel.fromFirestore,
+        toFirestore: (value, options) {
+          return bsegModel.toFirestore();
+        },
+      )
+          .add(bsegModel);
+    }
+    catch (e) {
+      print(e.toString());
+      throw Exception(e.toString());
+    }
   }
 
   Future<void> getDetailObra()async {
@@ -424,23 +492,45 @@ class _MapActivityPageState extends State<MapActivityPage> {
             }));
   }
 
+  Future<void> getFormamByEmail() async{
+    try{
+      await FirebaseFirestore.instance.collection("formam")
+          .where("email", isEqualTo: emailController.text)
+          .get()
+          .then(
+            (querySnapshot) {
 
+          for (var docSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> response = docSnapshot.data();
+            _formamDB = FormamModel.fromMap(response,docSnapshot.reference.id);
+          }
+
+        },
+        onError: (e) => print("Error completing: $e"),
+      );
+    }
+    catch (e){
+
+      print(e);
+
+    }
+  }
 
 
   Future<bool> checkUserIsWorking() async {
     var db = FirebaseFirestore.instance;
-    AtividadeHoraModel atividade = AtividadeHoraModel();
+    AtividadeHoraModel atividadeHora = AtividadeHoraModel();
     bool isWorking = false;
 
     try {
       await db.collection(FirebaseConst.atividadeHora)
           .where("idUsuario", isEqualTo:_auth.currentUser?.uid)
-          .where("dtHoraSaida",isEqualTo: null)
+          .where("status",isEqualTo: 'A')
           .get().then(
             (querySnapshot) {
           for (var docSnapshot in querySnapshot.docs) {
             Map<String, dynamic> response = docSnapshot.data();
-            atividade = AtividadeHoraModel.fromMap(response, '');
+            atividadeHora = AtividadeHoraModel.fromMap(response, docSnapshot.id);
           }
         },
         onError: (e) => print("Error completing: $e"),
@@ -450,9 +540,12 @@ class _MapActivityPageState extends State<MapActivityPage> {
       print(e);
     }
 
-    if(atividade.idUsuario.isNotEmpty){
+    if(atividadeHora.idUsuario.isNotEmpty){
       //usuário está trabalhando
       isWorking = true;
+      setState(() {
+        idAtividade = atividadeHora.id;
+      });
     }
 
     return isWorking;
@@ -503,6 +596,7 @@ class _MapActivityPageState extends State<MapActivityPage> {
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection("obras")
+                      .where("formam", isEqualTo: _formamModel.id)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {

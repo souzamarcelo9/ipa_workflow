@@ -10,6 +10,7 @@ class MaterialModel {
   String unidade;
   String profissional;
   String obs;
+  String status;
 
   MaterialModel({
     this.id = '',
@@ -21,6 +22,7 @@ class MaterialModel {
     this.unidade = '',
     this.profissional = '',
     this.obs = '',
+    this.status = ''
   });
 
   Map<String, dynamic> toMap() {
@@ -34,6 +36,7 @@ class MaterialModel {
       "unidade": unidade,
       "profissional":profissional,
       "obs": obs,
+      "status": status,
     };
     return map;
   }
@@ -49,6 +52,7 @@ class MaterialModel {
       unidade: dados?['unidade'] ?? '',
       profissional: dados?['profissional'] ?? '',
       obs: dados?['obs'] ?? '',
+      status: dados?['status'] ?? '',
     );
   }
 
@@ -62,6 +66,7 @@ class MaterialModel {
       unidade: json['unidade'],
       profissional: json['profissional'],
       obs: json['obs'],
+      status: json['status'],
     );
   }
   Map<String, dynamic> toFirestore() {
@@ -75,6 +80,7 @@ class MaterialModel {
       "unidade": unidade,
       "profissional": profissional,
       "obs":obs,
+      "status":status,
     };
   }
 
@@ -93,6 +99,7 @@ class MaterialModel {
       unidade: data['unidade'],
       dtEntrega: data['dtEntrega'],
       obs: data['obs'],
+      status: data['status'],
     );
   }
 
@@ -106,6 +113,7 @@ class MaterialModel {
       "unidade": unidade,
       "profissional": profissional,
       "obs": obs,
+      "status": status,
     };
   }
 
@@ -118,6 +126,7 @@ class MaterialModel {
         required String unidade,
         required String profissional,
         required String obs,
+        required String status,
         }) {
     return MaterialModel(
         obra: obra,
@@ -128,6 +137,7 @@ class MaterialModel {
         quantidade: quantidade,
         unidade: unidade,
         obs:obs,
+        status:status,
     );
   }
 
