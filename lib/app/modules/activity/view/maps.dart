@@ -52,7 +52,8 @@ class _MapActivityPageState extends State<MapActivityPage> {
   late List<CardTabela> lstCards = [];
   late List<CardTabela> lstCardsInit = [];
   late GoogleMapController mapController;
-  late LatLng _currentPosition;
+  //late LatLng _currentPosition;
+  late Future<LatLng> _currentPosition;
   var selectedObra, selectedType,selectedTabela;
   bool _isLoading = true;
   late DateTime _chosenDateTime;
@@ -103,9 +104,9 @@ class _MapActivityPageState extends State<MapActivityPage> {
     LatLng location = LatLng(lat, long);
 
     setState(() {
-      _currentPosition = location;
-      latitude = lat;
-      longitude = long;
+      //_currentPosition = location;
+      //latitude = lat;
+      //longitude = long;
       _isLoading = false;
     });
 
@@ -338,6 +339,13 @@ class _MapActivityPageState extends State<MapActivityPage> {
     bsegModel.tpDoc = "KR";
     bsegModel.urlImagem = controller.userModel.userImage;
     bsegModel.wrbtr = atividade.totalProfissional;
+    bsegModel.grupo = '03';
+    bsegModel.hkont = '03.01';
+    bsegModel.augdt = '';
+    bsegModel.waers = 'USD';
+    bsegModel.vencimento = '';
+    bsegModel.history = 'Pagamento para o profissional';
+    bsegModel.fornecedor = controller.userModel.name;
 
     try {
       await db
@@ -381,7 +389,7 @@ class _MapActivityPageState extends State<MapActivityPage> {
       longitude,
     );
 
-    distanceInMeters = 100;
+    //distanceInMeters = 100;
     if(distanceInMeters > 1000){
       //localização inválida fora do local de trabalho
       localOk = false;
@@ -426,7 +434,7 @@ class _MapActivityPageState extends State<MapActivityPage> {
   void initState() {
     onInit();
     super.initState();
-    getLocation();
+    _currentPosition = getLocation();
 
   }
 
@@ -446,8 +454,8 @@ class _MapActivityPageState extends State<MapActivityPage> {
 
   buildContainer() {
     return Container(
-        child: FutureBuilder(
-            future: getLocation(),
+        child: FutureBuilder<LatLng>(
+            future: _currentPosition,//getLocation(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Stack(

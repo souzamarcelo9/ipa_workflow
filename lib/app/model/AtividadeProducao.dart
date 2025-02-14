@@ -14,6 +14,11 @@ class AtividadeProducaoModel {
   String nomeProfissional;
   String emailProfissional;
   String url;
+  String altura;
+  String obra;
+  String unidade;
+  Timestamp ?dtAtividade;
+  String descAtividade;
 
   AtividadeProducaoModel({
     this.id = '',
@@ -29,6 +34,11 @@ class AtividadeProducaoModel {
     this.nomeProfissional = '',
     this.emailProfissional = '',
     this.url = '',
+    this.altura = '',
+    this.obra = '',
+    this.unidade = '',
+    this.dtAtividade,
+    this.descAtividade = ''
   });
 
   Map<String, dynamic> toMap() {
@@ -46,6 +56,11 @@ class AtividadeProducaoModel {
       "nomeProfissional": nomeProfissional,
       "emailProfissional": emailProfissional,
       "url": url,
+      "altura": altura,
+      "obra": obra,
+      "unidade":unidade,
+      "dtAtividade":dtAtividade,
+      "descAtividade":descAtividade
     };
     return map;
   }
@@ -65,6 +80,11 @@ class AtividadeProducaoModel {
       nomeProfissional: dados?['nomeProfissional'] ?? '',
       emailProfissional: dados?['emailProfissional'] ?? '',
       url: dados?['url'] ?? '',
+      altura: dados?['altura'] ?? '',
+      obra: dados?['obra'] ?? '',
+      unidade: dados?['unidade'] ?? '',
+      dtAtividade: dados?['dtAtividade'] ?? null,
+        descAtividade:dados?['descAtividade'] ?? ''
     );
   }
   factory AtividadeProducaoModel.fromFirestore(
@@ -86,6 +106,11 @@ class AtividadeProducaoModel {
       nomeProfissional: data['nomeProfissional'],
       emailProfissional: data['emailProfissional'],
       url: data['url'],
+      obra: data['obra'],
+      unidade: data['unidade'],
+      altura: data['altura'],
+        dtAtividade: data['dtAtividade'],
+        descAtividade:data['descAtividade']
     );
   }
   Map<String, dynamic> toFirestore() {
@@ -103,6 +128,11 @@ class AtividadeProducaoModel {
       "nomeProfissional":nomeProfissional,
       "emailProfissional":emailProfissional,
       "url":url,
+      "altura":altura,
+      "obra":obra,
+      "unidade":unidade,
+      "dtAtividade":dtAtividade,
+      "descAtividade":descAtividade
     };
   }
 

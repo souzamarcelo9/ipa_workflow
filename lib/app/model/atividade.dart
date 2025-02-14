@@ -11,6 +11,7 @@ class AtividadeModel {
   String tabela;
   int unidade;
   String altura;
+  String room;
   Timestamp ?dtModificacao;
   String usuario;
   List<ProducaoModel> tbProducao;
@@ -28,6 +29,7 @@ class AtividadeModel {
     this.tabela = '',
     this.unidade = 0,
     this.altura = '',
+    this.room = '',
     this.usuario = '',
     this.dtModificacao,
     this.tbProducao = const[],
@@ -47,6 +49,7 @@ class AtividadeModel {
       "email": tabela,
       "unidade": unidade,
       "altura": altura,
+      "room": room,
       "usuario": usuario,
       "dtModificacao":dtModificacao,
       "tbProducao": tbProducao,
@@ -68,6 +71,7 @@ class AtividadeModel {
       tabela: dados?['tabela'] ?? '',
       unidade: dados?['unidade'] ?? 0,
       altura: dados?['altura'] ?? '',
+      room: dados?['room'] ?? '',
       usuario: dados?['usuario'] ?? '',
       dtModificacao: dados?['dtModificacao'] ?? null,
       tbProducao: dados?['tbProducao'] ?? [],
@@ -88,6 +92,7 @@ class AtividadeModel {
         required Timestamp dtModificacao,
         required String status,
         required String altura,
+        required String room,
         required int ano,
         required int mes,
       }) {
@@ -99,6 +104,7 @@ class AtividadeModel {
       tabela: tabela,
       unidade: unidade,
       altura: altura,
+      room:room,
       usuario:usuario,
       dtModificacao: dtModificacao,
       status:status,
@@ -116,6 +122,7 @@ class AtividadeModel {
       "tabela": tabela,
       "unidade": unidade,
       "altura": altura,
+      "room": room,
       "usuario":usuario,
       "dtModificacao":dtModificacao,
       "status":status,
@@ -133,6 +140,7 @@ class AtividadeModel {
       tabela: json['tabela'],
       unidade: json['unidade'],
       altura: json['altura'],
+      room: json['room'],
       usuario:json['usuario'],
       dtModificacao: json['dtModificacao'],
       status: json['status'],
@@ -154,6 +162,7 @@ class AtividadeModel {
       tabela: data['tabela'],
       unidade: data['unidade'],
       altura: data['altura'],
+        room: data['room'],
       usuario: data['usuario'],
       dtModificacao: data['dtModificacao'],
       status: data['status'],

@@ -534,6 +534,7 @@ class _CreateScreenState extends State<CreateScreen> {
                             usuario:emailController.text,
                             dtModificacao: Timestamp.now(),
                             altura: alturaController.text,
+                            room:'',
                             status: 'A',
                             mes: DateTime.now().month,
                             ano:DateTime.now().year

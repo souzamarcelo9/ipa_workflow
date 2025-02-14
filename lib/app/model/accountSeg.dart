@@ -14,6 +14,13 @@ class AccountSegModel {
   String status;
   int ano;
   int mes;
+  String grupo;
+  String hkont;
+  String augdt;
+  String fornecedor;
+  String history;
+  String vencimento;
+  String waers;
 
   AccountSegModel({
     this.id = '',
@@ -26,7 +33,14 @@ class AccountSegModel {
     this.wrbtr = 0,
     this.status = '',
     this.ano = 0,
-    this.mes = 0
+    this.mes = 0,
+    this.grupo = '',
+    this.hkont = '',
+    this.augdt = '',
+    this.fornecedor = '',
+    this.history = '',
+    this.vencimento = '',
+    this.waers = ''
   });
 
   Map<String, dynamic> toMap() {
@@ -42,6 +56,13 @@ class AccountSegModel {
       "status": status,
       "ano": ano,
       "mes": mes,
+      "grupo": grupo,
+      "hkont": hkont,
+      "augdt": augdt,
+      "fornecedor": fornecedor,
+      "history":history,
+      "vencimento":vencimento,
+      "waers":waers
     };
     return map;
   }
@@ -58,7 +79,14 @@ class AccountSegModel {
       wrbtr: dados?['wrbtr'] ?? 0,
       status: dados?['status'] ?? [],
       mes: dados?['mes'] ?? 0,
-      ano: dados?['ano'] ?? 0
+      ano: dados?['ano'] ?? 0,
+      grupo: dados?['grupo'] ?? '',
+      hkont: dados?['hkont'] ?? '',
+      augdt: dados?['augdt'] ?? '',
+      fornecedor: dados?['fornecedor'] ?? '',
+      history: dados?['history'] ?? '',
+      vencimento: dados?['vencimento'] ?? '',
+      waers: dados?['waers'] ?? '',
     );
   }
   factory AccountSegModel.create(
@@ -72,7 +100,14 @@ class AccountSegModel {
         required num wrbtr ,
         required String status,
         required int ano,
-        required int mes
+        required int mes,
+        required String grupo,
+        required String hkont,
+        required String augdt,
+        required String fornecedor,
+        required String history,
+        required String vencimento,
+        required String waers
       }) {
     return AccountSegModel(
         profissional: profissional,
@@ -85,6 +120,13 @@ class AccountSegModel {
         status:status,
         ano: ano,
         mes: mes,
+        grupo: grupo,
+        hkont: hkont,
+        augdt: augdt,
+        fornecedor: fornecedor,
+        history: history,
+        vencimento: vencimento,
+        waers: waers,
     );
   }
   Map<String, dynamic> toFirestore() {
@@ -100,6 +142,13 @@ class AccountSegModel {
       "status":status,
       "ano":ano,
       "mes":mes,
+      "grupo":grupo,
+      "hkont":hkont,
+      "augdt":augdt,
+      "fornecedor":fornecedor,
+      "history":history,
+      "vencimento":vencimento,
+      "waers":waers,
     };
   }
   factory AccountSegModel.fromJson(Map<String, dynamic> json) {
@@ -115,6 +164,13 @@ class AccountSegModel {
       status:json['status'],
       ano: json['ano'],
       mes: json['mes'],
+      grupo: json['grupo'],
+      hkont: json['hkont'],
+      augdt: json['augdt'],
+      fornecedor: json['fornecedor'],
+      history: json['history'],
+      vencimento: json['vencimento'],
+      waers: json['waers'],
     );
   }
   factory AccountSegModel.fromFirestore(
@@ -134,6 +190,13 @@ class AccountSegModel {
       status: data['status'],
       ano: data['ano'],
       mes: data['mes'],
+      grupo: data['grupo'],
+      hkont: data['hkont'],
+      augdt: data['augdt'],
+      fornecedor: data['fornecedor'],
+      history: data['history'],
+      vencimento: data['vencimento'],
+      waers: data['waers'],
     );
   }
 

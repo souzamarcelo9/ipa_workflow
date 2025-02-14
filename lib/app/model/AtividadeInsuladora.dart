@@ -14,6 +14,11 @@ class AtividadeInsuladoraModel {
   String nomeProfissional;
   String emailProfissional;
   String url;
+  String altura;
+  String obra;
+  String unidade;
+  Timestamp ?dtAtividade;
+  String descAtividade;
 
   AtividadeInsuladoraModel({
     this.id = '',
@@ -29,7 +34,11 @@ class AtividadeInsuladoraModel {
     this.nomeProfissional = '',
     this.emailProfissional = '',
     this.url = '',
-
+    this.altura = '',
+    this.obra = '',
+    this.unidade = '',
+    this.dtAtividade,
+    this.descAtividade = ''
   });
 
   Map<String, dynamic> toMap() {
@@ -47,6 +56,11 @@ class AtividadeInsuladoraModel {
       "nomeProfissional": nomeProfissional,
       "emailProfissional": emailProfissional,
       "url": url,
+      "altura": altura,
+      "obra": obra,
+      "unidade":unidade,
+      "dtAtividade":dtAtividade,
+      "descAtividade":descAtividade
     };
     return map;
   }
@@ -66,6 +80,11 @@ class AtividadeInsuladoraModel {
       nomeProfissional: dados?['nomeProfissional'] ?? '',
       emailProfissional: dados?['emailProfissional'] ?? '',
       url: dados?['url'] ?? '',
+      altura: dados?['altura'] ?? '',
+      obra: dados?['obra'] ?? '',
+      unidade: dados?['unidade'] ?? '',
+      dtAtividade: dados?['dtAtividade'] ?? null,
+        descAtividade: dados?['descAtividade'] ?? ''
     );
   }
   factory AtividadeInsuladoraModel.fromFirestore(
@@ -87,6 +106,11 @@ class AtividadeInsuladoraModel {
       nomeProfissional: data['nomeProfissional'],
       emailProfissional: data['emailProfissional'],
       url: data['url'],
+        obra: data['obra'],
+        unidade: data['unidade'],
+        altura: data['altura'],
+        dtAtividade: data['dtAtividade'],
+        descAtividade:data['descAtividade']
     );
   }
   Map<String, dynamic> toFirestore() {
@@ -104,6 +128,11 @@ class AtividadeInsuladoraModel {
       "nomeProfissional":nomeProfissional,
       "emailProfissional":emailProfissional,
       "url":url,
+      "altura":altura,
+      "obra":obra,
+      "unidade":unidade,
+      "dtAtividade":dtAtividade,
+      "descAtividade": descAtividade
     };
   }
 

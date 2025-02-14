@@ -53,6 +53,7 @@ class _CreatePageState extends State<CreatePage> {
   TextEditingController tbProdController = TextEditingController();
   TextEditingController unidadeController = TextEditingController();
   TextEditingController alturaController = TextEditingController();
+  TextEditingController roomController = TextEditingController();
   TextEditingController dataController = TextEditingController();
   Map<String, dynamic> data = {};
   late final CollectionReference? _profissionais;
@@ -569,6 +570,20 @@ class _CreatePageState extends State<CreatePage> {
               keyboardType: TextInputType.streetAddress,
               controller: alturaController,
             )),
+               const SizedBox(height: 20),
+               SizedBox(height: 50,width:300,child:
+               TextFormField(
+                 decoration: const InputDecoration(
+                   icon: Icon(
+                     FontAwesomeIcons.pencil,
+                     color: Colors.blueGrey,
+                   ),
+                   hintText: 'Descrição',
+                   labelText: 'Descrição da atividade',
+                 ),
+                 keyboardType: TextInputType.streetAddress,
+                 controller: roomController,
+               )),
           const SizedBox(height: 30),
           SizedBox(height: 600,width: 500,child:
             Editable(
@@ -676,6 +691,7 @@ class _CreatePageState extends State<CreatePage> {
                                  usuario:emailController.text,
                                  dtModificacao: Timestamp.now(),
                                  altura: alturaController.text,
+                                 room:roomController.text,
                                  status: 'A',
                                  mes: DateTime.now().month,
                                  ano:DateTime.now().year
@@ -810,7 +826,7 @@ class _CreatePageState extends State<CreatePage> {
     setState(() {
       idAtividade = docRef.id;
     });
-    _createWorkTables(idAtividade,profissional.tbProd);
+    _createWorkTables(idAtividade,profissional.tbProd,atividade);
     return docRef;
   }
 
@@ -848,6 +864,13 @@ class _CreatePageState extends State<CreatePage> {
     bsegModel.tpDoc = "KR";
     bsegModel.urlImagem = controller.userModel.userImage;
     bsegModel.wrbtr = atividade.totalProfissional;
+    bsegModel.grupo = '03';
+    bsegModel.hkont = '03.01';
+    bsegModel.augdt = '';
+    bsegModel.waers = 'USD';
+    bsegModel.vencimento = '';
+    bsegModel.history = 'Pagamento para o profissional';
+    bsegModel.fornecedor = atividade.nomeProfissional;
 
     try {
        await db
@@ -904,6 +927,13 @@ class _CreatePageState extends State<CreatePage> {
     bsegModel.tpDoc = "KR";
     bsegModel.urlImagem = controller.userModel.userImage;
     bsegModel.wrbtr = atividade.totalProfissional;
+    bsegModel.grupo = '03';
+    bsegModel.hkont = '03.01';
+    bsegModel.augdt = '';
+    bsegModel.waers = 'USD';
+    bsegModel.vencimento = '';
+    bsegModel.history = 'Pagamento para o profissional';
+    bsegModel.fornecedor = atividade.nomeProfissional;
 
     try {
       await db
@@ -945,7 +975,7 @@ class _CreatePageState extends State<CreatePage> {
     }
   }
 
-  Future<void> _createWorkTables(String idAtividade,String tipoTabela) async {
+  Future<void> _createWorkTables(String idAtividade,String tipoTabela,AtividadeModel atividade) async {
     final db = FirebaseFirestore.instance;
     DocumentReference docRef;
     // await db.collection(Collection.users).add(user.toJson());
@@ -996,7 +1026,8 @@ class _CreatePageState extends State<CreatePage> {
         atividadeProd.usProfissional = producaoModel.usProfissional;
 
         //preenchimento do usuário
-        if(editedRows[i]['ft'] != '') {
+
+        if(editedRows[i]['ft'] != '' && editedRows[i]['ft'] != null) {
           atividadeProd.psqt = int.parse(editedRows[i]['ft']);
         }
         if(editedRows[i]['qtde'] != '') {
@@ -1009,6 +1040,13 @@ class _CreatePageState extends State<CreatePage> {
         atividadeProd.url = controller.userModel.userImage;
         atividadeProd.emailProfissional = controller.userModel.email;
         atividadeProd.nomeProfissional = controller.userModel.name;
+
+        //campos da atividade
+        atividadeProd.obra = atividade.obra;
+        atividadeProd.altura = atividade.altura;
+        atividadeProd.unidade = atividade.unidade.toString();
+        atividadeProd.dtAtividade = Timestamp.now();
+        atividadeProd.descAtividade = atividade.room;
 
         try {
           docRef = await db
@@ -1069,6 +1107,13 @@ class _CreatePageState extends State<CreatePage> {
         atividadeInsul.url = controller.userModel.userImage;
         atividadeInsul.emailProfissional = controller.userModel.email;
         atividadeInsul.nomeProfissional = controller.userModel.name;
+
+        //campos da atividade
+        atividadeInsul.obra = atividade.obra;
+        atividadeInsul.altura = atividade.altura;
+        atividadeInsul.unidade = atividade.unidade.toString();
+        atividadeInsul.dtAtividade = Timestamp.now();
+        atividadeInsul.descAtividade = atividade.room;
 
           try {
            docRef =  await db
